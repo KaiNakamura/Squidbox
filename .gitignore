@@ -1,0 +1,11 @@
+.pio
+.clang_complete
+.gcc-flags.json
+.vscode
+
+.ino.cpp
+test/tmp_pio_test_transport.cpp
+*.h.gch
+
+# config file
+src/config/config.h

@@ -1,0 +1,35 @@
+name: BuildCI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        pip install -U platformio
+        platformio update
+
+    - name: Create sample config file
+      run: |
+        cp ./src/config/config.sample.h ./src/config/config.h
+
+    - name: Compile with Platform IO
+      run: |
+        platformio run
