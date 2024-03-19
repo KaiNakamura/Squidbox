@@ -7,22 +7,20 @@
 
 void setup()
 {
-  // put your setup code here, to run once:
-
   // Enables Serial Communication with baudRate of 115200
   Serial.begin(115200);
-  Serial.println("PlatformIO ESP32 Boilerplate started...");
+  Serial.println("Initializing Squidbox");
 
-  pinMode(PIN_LED_INBUILT, OUTPUT);
+  pinMode(PIN_LED_BUILT_IN, OUTPUT);
 }
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
-
-  digitalWrite(PIN_LED_INBUILT, HIGH);
+  digitalWrite(PIN_LED_BUILT_IN, HIGH);
+  Serial.println("HIGH");
   delay(1000);
-  digitalWrite(PIN_LED_INBUILT, LOW);
+  digitalWrite(PIN_LED_BUILT_IN, LOW);
+  Serial.println("LOW");
   delay(1000);
 }
 

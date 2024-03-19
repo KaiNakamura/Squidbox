@@ -5,5 +5,5 @@
 // Load the configuration details
 #include "config/config.h"
 
-// pin map
+// Pin map
 #include "config/pins.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#define PIN_LED_INBUILT 2
+#define PIN_LED_BUILT_IN 2
 
 // Analog Inputs --------
 #define PIN_A1_0 36
