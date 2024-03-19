@@ -1,35 +1,24 @@
-name: BuildCI
+name: PlatformIO CI
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the main branch
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.10]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          pip install -U platformio
-          platformio update
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
 
-      - name: Create sample config file
-        run: |
-          cp ./src/config/config.sample.h ./src/config/config.h
-
-      - name: Compile with Platform IO
-        run: |
-          platformio run
+      - name: Build PlatformIO Project
+        run: pio run
