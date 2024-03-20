@@ -7,10 +7,8 @@ Squidbox::Squidbox()
 
 void Squidbox::setup()
 {
-  Serial.println("Squidbox setup");
 }
 
 void Squidbox::loop()
 {
-  Serial.println("Squidbox loop");
 }
