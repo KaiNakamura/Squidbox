@@ -1,9 +1,14 @@
 #pragma once
 
 #include <Arduino.h>
-
-// Load the configuration details
 #include "config/config.h"
-
-// Pin map
 #include "config/pins.h"
+
+class Squidbox
+{
+private:
+public:
+  Squidbox();
+  void setup();
+  void loop();
+};
