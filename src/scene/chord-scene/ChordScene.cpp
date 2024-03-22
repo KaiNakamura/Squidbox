@@ -1,0 +1,15 @@
+#include "ChordScene.h"
+
+ChordScene::ChordScene()
+{
+  type = CHORD_SCENE;
+}
+
+void ChordScene::init()
+{
+  Serial.println("ChordScene init");
+}
+
+void ChordScene::update()
+{
+}

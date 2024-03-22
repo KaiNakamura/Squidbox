@@ -10,10 +10,9 @@ void setup()
   Serial.println("Initializing Squidbox");
 
   squidbox = new Squidbox();
-  squidbox->setup();
 }
 
 void loop()
 {
-  squidbox->loop();
+  squidbox->update();
 }
