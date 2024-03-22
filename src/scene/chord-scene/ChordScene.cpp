@@ -5,10 +5,11 @@ ChordScene::ChordScene()
   type = CHORD_SCENE;
 }
 
-void ChordScene::setup()
+void ChordScene::init()
 {
+  Serial.println("ChordScene init");
 }
 
-void ChordScene::loop()
+void ChordScene::update()
 {
 }

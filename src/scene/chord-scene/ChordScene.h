@@ -1,9 +1,11 @@
-#include "Scene.h"
+#pragma once
+
+#include "scene/Scene.h"
 
 class ChordScene : public Scene
 {
 public:
   ChordScene();
-  void setup();
-  void loop();
+  void init();
+  void update();
 };

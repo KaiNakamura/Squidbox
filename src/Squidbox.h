@@ -3,15 +3,14 @@
 #include <Arduino.h>
 #include "config/config.h"
 #include "config/pins.h"
-#include "Scene.h"
+#include "scene/SceneManager.h"
 
 class Squidbox
 {
 private:
-  Scene *scenes;
+  SceneManager *sceneManager;
 
 public:
   Squidbox();
-  void setup();
-  void loop();
+  void update();
 };

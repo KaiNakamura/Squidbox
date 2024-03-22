@@ -3,12 +3,10 @@
 Squidbox::Squidbox()
 {
   Serial.println("Hello from Squidbox!");
+  sceneManager = new SceneManager();
 }
 
-void Squidbox::setup()
+void Squidbox::update()
 {
-}
-
-void Squidbox::loop()
-{
+  sceneManager->update();
 }

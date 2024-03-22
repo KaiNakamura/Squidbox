@@ -5,10 +5,11 @@ MainScene::MainScene()
   type = MAIN_SCENE;
 }
 
-void MainScene::setup()
+void MainScene::init()
 {
+  Serial.println("MainScene init");
 }
 
-void MainScene::loop()
+void MainScene::update()
 {
 }
