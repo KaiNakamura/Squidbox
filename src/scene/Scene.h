@@ -1,19 +1,21 @@
 #pragma once
 
-#include <Arduino.h>
-
-const int NUM_SCENES = 2;
+const int NUM_SCENES = 3;
 
 enum SceneType
 {
   MAIN_SCENE,
   CHORD_SCENE,
+  JOYSTICK_CALIBRATOR_SCENE
 };
+
+class Squidbox;
 
 class Scene
 {
 protected:
   SceneType type;
+  Squidbox *squidbox;
 
 public:
   virtual void init();

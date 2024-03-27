@@ -1,7 +1,9 @@
 #include "ChordScene.h"
+#include "Squidbox.h"
 
-ChordScene::ChordScene()
+ChordScene::ChordScene(Squidbox *squidbox)
 {
+  this->squidbox = squidbox;
   type = CHORD_SCENE;
 }
 

@@ -3,12 +3,32 @@
 Squidbox::Squidbox()
 {
   Serial.println("Hello from Squidbox!");
-  sceneManager = new SceneManager();
   joystick = new Joystick(14, 27, 26);
+}
+
+void Squidbox::init()
+{
+  scenes[MAIN_SCENE] = new MainScene(this);
+  scenes[CHORD_SCENE] = new ChordScene(this);
+  scenes[JOYSTICK_CALIBRATOR_SCENE] = new JoystickCalibratorScene(this);
+  scenes[currentScene]->init();
 }
 
 void Squidbox::update()
 {
-  sceneManager->update();
-  Serial.printf("(%d, %d), (%f, %f), %d\n", joystick->getRawX(), joystick->getRawY(), joystick->getX(), joystick->getY(), joystick->getDirection());
+  scenes[currentScene]->update();
+}
+
+void Squidbox::switchTo(SceneType scene)
+{
+  if (scene != currentScene)
+  {
+    currentScene = scene;
+    scenes[currentScene]->init();
+  }
+}
+
+Joystick *Squidbox::getJoystick()
+{
+  return joystick;
 }

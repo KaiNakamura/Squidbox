@@ -5,7 +5,7 @@
 class MainScene : public Scene
 {
 public:
-  MainScene();
+  MainScene(Squidbox *squidbox);
   void init();
   void update();
 };

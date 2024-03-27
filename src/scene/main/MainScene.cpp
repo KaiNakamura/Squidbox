@@ -1,7 +1,9 @@
 #include "MainScene.h"
+#include "Squidbox.h"
 
-MainScene::MainScene()
+MainScene::MainScene(Squidbox *squidbox)
 {
+  this->squidbox = squidbox;
   type = MAIN_SCENE;
 }
 
