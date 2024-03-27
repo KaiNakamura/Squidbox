@@ -2,7 +2,8 @@
 
 Squidbox::Squidbox()
 {
-  Serial.println("Hello from Squidbox!");
+  BLEMidiServer.begin("Squidbox");
+  BLEMidiServer.enableDebugging();
   joystick = new Joystick(14, 27, 26);
 }
 
