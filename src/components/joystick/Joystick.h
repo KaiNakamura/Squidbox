@@ -19,12 +19,12 @@ private:
   const int Y_CENTER = 2832;
   int xPin;
   int yPin;
-  int switchPin;
+  int buttonPin;
   static float map(float x, float inMin, float inMax, float outMin, float outMax);
   static float convertRawValue(int raw, int center);
 
 public:
-  Joystick(int xPin, int yPin, int switchPin);
+  Joystick(int xPin, int yPin, int buttonPin);
 
   /**
    * @brief Gets the raw x value between 0 and 1023
