@@ -33,7 +33,7 @@ float Joystick::getY()
   return convertRawValue(getRawY());
 }
 
-int Joystick::isPressed()
+bool Joystick::isPressed()
 {
   // digitalRead returns 0 when pressed, so flip it
   return !digitalRead(switchPin);

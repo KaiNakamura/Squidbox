@@ -53,11 +53,11 @@ public:
   float getY();
 
   /**
-   * @brief Returns 1 if the joystick is pressed, otherwise 0
+   * @brief Returns if the joystick is pressed
    *
-   * @return int
+   * @return bool
    */
-  int isPressed();
+  bool isPressed();
 
   /**
    * @brief Returns the direction that the joystick is facing
