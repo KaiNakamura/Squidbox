@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include <BLEMidi.h>
 #include "scene/Scene.h"
 #include "scene/main/MainScene.h"
 #include "scene/chord/ChordScene.h"
@@ -13,7 +14,7 @@ class Squidbox
 {
 private:
   Scene *scenes[NUM_SCENES];
-  int currentScene = JOYSTICK_CALIBRATOR_SCENE;
+  int currentScene = CHORD_SCENE;
 
   Joystick *joystick;
 
