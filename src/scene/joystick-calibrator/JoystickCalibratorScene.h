@@ -2,14 +2,13 @@
 
 #include "scene/Scene.h"
 #include "components/joystick/Joystick.h"
+#include "util/moving-average/MovingAverage.h"
 
 class JoystickCalibratorScene : public Scene
 {
 private:
-  const float ALPHA = 0.999;
-  Joystick *joystick;
-  float xAccumulator;
-  float yAccumulator;
+  const int NUM_SAMPLES = 200;
+  MovingAverage *xAverage, *yAverage;
 
 public:
   JoystickCalibratorScene(Squidbox *squidbox);

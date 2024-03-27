@@ -9,14 +9,22 @@ JoystickCalibratorScene::JoystickCalibratorScene(Squidbox *squidbox)
 
 void JoystickCalibratorScene::init()
 {
-  joystick = squidbox->getJoystick();
-  xAccumulator = joystick->getRawX();
-  yAccumulator = joystick->getRawY();
+  xAverage = new MovingAverage(NUM_SAMPLES);
+  yAverage = new MovingAverage(NUM_SAMPLES);
 }
 
 void JoystickCalibratorScene::update()
 {
-  xAccumulator = (ALPHA * joystick->getRawX()) + (1.0 - ALPHA) * xAccumulator;
-  yAccumulator = (ALPHA * joystick->getRawY()) + (1.0 - ALPHA) * yAccumulator;
-  Serial.printf("(%.0f, %.0f)\n", xAccumulator, yAccumulator);
+  Joystick *joystick = squidbox->getJoystick();
+
+  if (joystick->isPressed())
+  {
+    init();
+  }
+
+  float rawX = xAverage->next(joystick->getRawX());
+  float rawY = yAverage->next(joystick->getRawY());
+  float x = joystick->getX();
+  float y = joystick->getY();
+  Serial.printf("(rawX, rawY): (%.0f, %.0f), (x, y): (%.2f, %.2f)\n", rawX, rawY, x, y);
 }
