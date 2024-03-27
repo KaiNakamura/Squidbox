@@ -5,7 +5,7 @@
 class ChordScene : public Scene
 {
 public:
-  ChordScene();
+  ChordScene(Squidbox *squidbox);
   void init();
   void update();
 };
