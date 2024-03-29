@@ -1,6 +1,7 @@
 #include "ChordScene.h"
 #include "Squidbox.h"
 
+
 ChordScene::ChordScene(Squidbox *squidbox)
 {
   this->squidbox = squidbox;
@@ -14,19 +15,25 @@ void ChordScene::init()
 
 void ChordScene::playChord(int buttonPin, int note1, int note2, int note3)
 {
-  if (squidbox->getButton(buttonPin)->isPressed())
+  if (squidbox->getButton(buttonPin)->isPressed() && !squidbox->getButton(buttonPin)->getWasPressed())
   {
     Serial.println("Button pressed");
     BLEMidiServer.noteOn(0, note1, 127);
     BLEMidiServer.noteOn(0, note2, 127);
     BLEMidiServer.noteOn(0, note3, 127);
     Serial.println("On " + String(buttonPin) + " " + String(note1) + " " + String(note2) + " " + String(note3));
-    delay(1000);
+    squidbox->getButton(buttonPin)->setWasPressed(true);
+  }
+  else if (!squidbox->getButton(buttonPin)->isPressed() && squidbox->getButton(buttonPin)->getWasPressed())
+  {
     BLEMidiServer.noteOff(0, note1, 127);
     BLEMidiServer.noteOff(0, note2, 127);
     BLEMidiServer.noteOff(0, note3, 127);
     Serial.println("Off " + String(buttonPin) + " " + String(note1) + " " + String(note2) + " " + String(note3));
+    squidbox->getButton(buttonPin)->setWasPressed(false);
   }
+
+
 }
 
 void ChordScene::update()
