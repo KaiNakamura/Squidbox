@@ -6,14 +6,14 @@ Squidbox::Squidbox()
   BLEMidiServer.enableDebugging();
   joystick = new Joystick(14, 27, 26);
 
-  Button button1 = Button(15);
-  Button button2 = Button(16);
-  Button button3 = Button(17);
-  Button button4 = Button(18);
-  Button button5 = Button(19);
-  Button button6 = Button(20);
-  Button button7 = Button(21);
-  Button button8 = Button(22);
+  button1 = new Button(15);
+  button2 = new Button(16);
+  button3 = new Button(17);
+  button4 = new Button(18);
+  button5 = new Button(19);
+  button6 = new Button(20);
+  button7 = new Button(21);
+  button8 = new Button(22);
 
 }
 
