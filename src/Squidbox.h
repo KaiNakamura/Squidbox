@@ -16,7 +16,7 @@ class Squidbox
 {
 private:
   Scene *scenes[NUM_SCENES];
-  int currentScene = KNOB_SCENE;
+  int currentScene = JOYSTICK_CALIBRATOR_SCENE;
 
   Joystick *joystick;
   Knob *knob;

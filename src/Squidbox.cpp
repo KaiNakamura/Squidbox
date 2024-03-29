@@ -5,9 +5,8 @@ Squidbox::Squidbox()
   BLEMidiServer.begin("Squidbox");
   BLEMidiServer.enableDebugging();
 
-  // TODO: Move pins to config/pins.h
-  joystick = new Joystick(14, 27, 26);
-  knob = new Knob(34, 35, 0);
+  joystick = new Joystick(PIN_JOYSTICK_X, PIN_JOYSTICK_Y, PIN_JOYSTICK_BUTTON);
+  knob = new Knob(PIN_KNOB_A, PIN_KNOB_B, PIN_KNOB_BUTTON);
 }
 
 void Squidbox::init()
