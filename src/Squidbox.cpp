@@ -4,6 +4,7 @@ Squidbox::Squidbox()
 {
   BLEMidiServer.begin("Squidbox");
   BLEMidiServer.enableDebugging();
+  screen = new Screen();
   joystick = new Joystick(PIN_JOYSTICK_X, PIN_JOYSTICK_Y, PIN_JOYSTICK_BUTTON);
   knob = new Knob(PIN_KNOB_A, PIN_KNOB_B, PIN_KNOB_BUTTON);
   backButton = new Button(PIN_BACK_BUTTON);
@@ -22,6 +23,7 @@ void Squidbox::init()
 {
   scenes[MAIN_SCENE] = new MainScene(this);
   scenes[CHORD_SCENE] = new ChordScene(this);
+  scenes[SCREEN_SCENE] = new ScreenScene(this);
   scenes[JOYSTICK_CALIBRATOR_SCENE] = new JoystickCalibratorScene(this);
   scenes[KNOB_SCENE] = new KnobScene(this);
   scenes[BUTTON_SCENE] = new ButtonScene(this);
@@ -40,6 +42,11 @@ void Squidbox::switchTo(SceneType scene)
     currentScene = scene;
     scenes[currentScene]->init();
   }
+}
+
+Screen *Squidbox::getScreen()
+{
+  return screen;
 }
 
 Joystick *Squidbox::getJoystick()
