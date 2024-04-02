@@ -1,13 +1,14 @@
 #pragma once
 
-const int NUM_SCENES = 4;
+const int NUM_SCENES = 5;
 
 enum SceneType
 {
   MAIN_SCENE,
   CHORD_SCENE,
   JOYSTICK_CALIBRATOR_SCENE,
-  KNOB_SCENE
+  KNOB_SCENE,
+  BUTTON_SCENE,
 };
 
 class Squidbox;

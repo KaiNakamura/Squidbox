@@ -2,20 +2,29 @@
 
 Button::Button(int pin)
 {
-  wasPressed = false;
   this->pin = pin;
   pinMode(pin, INPUT_PULLUP);
+  wasDown = false;
+  wasUp = true;
 }
 
-bool Button::isPressed()
+bool Button::isDown()
 {
   return !digitalRead(pin);
 }
 
-bool Button::getWasPressed() {
-  return this->wasPressed;
+bool Button::isPressed()
+{
+  bool down = isDown();
+  bool pressed = down && !wasDown;
+  wasDown = down;
+  return pressed;
 }
 
-void Button::setWasPressed(bool wasPressed) {
-   this->wasPressed = wasPressed;
+bool Button::isReleased()
+{
+  bool up = !isDown();
+  bool released = up && !wasUp;
+  wasUp = up;
+  return released;
 }

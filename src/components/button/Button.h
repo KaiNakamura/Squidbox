@@ -6,11 +6,12 @@ class Button
 {
 private:
   int pin;
-  bool wasPressed;
+  bool wasDown;
+  bool wasUp;
 
 public:
   Button(int pin);
+  bool isDown();
   bool isPressed();
-  bool getWasPressed();
-  void setWasPressed(bool wasPressed);
+  bool isReleased();
 };
