@@ -17,3 +17,5 @@ public:
 
 extern Scale *MAJOR_SCALE;
 extern Scale *MINOR_SCALE;
+extern Scale *MAJOR_PENTATONIC_SCALE;
+extern Scale *MINOR_PENTATONIC_SCALE;

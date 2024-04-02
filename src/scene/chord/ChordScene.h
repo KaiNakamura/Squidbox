@@ -15,6 +15,7 @@ private:
   static const Note MAX_NOTE = NOTE_G8;
   static void onKnobLeft(int count, void *usr_data);
   static void onKnobRight(int count, void *usr_data);
+  void toggleScale();
 
 public:
   ChordScene(Squidbox *squidbox);

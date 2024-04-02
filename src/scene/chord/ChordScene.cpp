@@ -53,10 +53,28 @@ void ChordScene::playChord(int index, bool on)
   }
 }
 
+// TODO: Add switching between all scales and chord types
+void ChordScene::toggleScale()
+{
+  if (scale == MAJOR_SCALE)
+  {
+    scale = MINOR_SCALE;
+  }
+  else
+  {
+    scale = MAJOR_SCALE;
+  }
+}
+
 void ChordScene::update()
 {
   if (BLEMidiServer.isConnected())
   {
+    if (squidbox->getOkButton()->isPressed())
+    {
+      toggleScale();
+    }
+
     for (int i = 0; i < NUM_BUTTONS; i++)
     {
       Button *button = squidbox->getButton(i);
