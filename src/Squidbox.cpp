@@ -69,5 +69,9 @@ Button **Squidbox::getButtons()
 
 Button *Squidbox::getButton(int index)
 {
+  if (index < 0 || index > NUM_BUTTONS - 1)
+  {
+    Serial.printf("Error: Button not found with index %d\n", index);
+  }
   return buttons[index];
 }
