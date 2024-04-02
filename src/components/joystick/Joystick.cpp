@@ -1,16 +1,28 @@
 #include "Joystick.h"
 
-Joystick::Joystick(int xPin, int yPin, int switchPin)
+Joystick::Joystick(int xPin, int yPin, int buttonPin)
 {
   this->xPin = xPin;
   this->yPin = yPin;
-  this->switchPin = switchPin;
-  pinMode(switchPin, INPUT_PULLUP);
+  this->buttonPin = buttonPin;
+  pinMode(buttonPin, INPUT_PULLUP);
 }
 
-float Joystick::convertRawValue(int raw)
+float Joystick::map(float x, float inMin, float inMax, float outMin, float outMax)
 {
-  return 2 * (raw / 4096.0) - 1;
+  return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}
+
+float Joystick::convertRawValue(int raw, int center)
+{
+  if (raw > center)
+  {
+    return map(raw, center, 4095, 0, 1);
+  }
+  else
+  {
+    return map(raw, 0, center, -1, 0);
+  }
 }
 
 int Joystick::getRawX()
@@ -25,18 +37,18 @@ int Joystick::getRawY()
 
 float Joystick::getX()
 {
-  return convertRawValue(getRawX());
+  return convertRawValue(getRawX(), X_CENTER);
 }
 
 float Joystick::getY()
 {
-  return convertRawValue(getRawY());
+  return convertRawValue(getRawY(), Y_CENTER);
 }
 
 bool Joystick::isPressed()
 {
   // digitalRead returns 0 when pressed, so flip it
-  return !digitalRead(switchPin);
+  return !digitalRead(buttonPin);
 }
 
 Direction Joystick::getDirection()

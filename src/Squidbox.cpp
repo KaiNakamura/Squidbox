@@ -4,17 +4,16 @@ Squidbox::Squidbox()
 {
   BLEMidiServer.begin("Squidbox");
   BLEMidiServer.enableDebugging();
-  joystick = new Joystick(14, 27, 26);
-
-  button1 = new Button(15);
-  button2 = new Button(13);
-  button3 = new Button(4);
-  button4 = new Button(16);
-  button5 = new Button(17);
-  button6 = new Button(5);
-  button7 = new Button(18);
-  button8 = new Button(19);
-
+  joystick = new Joystick(PIN_JOYSTICK_X, PIN_JOYSTICK_Y, PIN_JOYSTICK_BUTTON);
+  knob = new Knob(PIN_KNOB_A, PIN_KNOB_B, PIN_KNOB_BUTTON);
+  buttons[0] = new Button(PIN_BUTTON_0);
+  buttons[1] = new Button(PIN_BUTTON_1);
+  buttons[2] = new Button(PIN_BUTTON_2);
+  buttons[3] = new Button(PIN_BUTTON_3);
+  buttons[4] = new Button(PIN_BUTTON_4);
+  buttons[5] = new Button(PIN_BUTTON_5);
+  buttons[6] = new Button(PIN_BUTTON_6);
+  buttons[7] = new Button(PIN_BUTTON_7);
 }
 
 void Squidbox::init()
@@ -22,6 +21,7 @@ void Squidbox::init()
   scenes[MAIN_SCENE] = new MainScene(this);
   scenes[CHORD_SCENE] = new ChordScene(this);
   scenes[JOYSTICK_CALIBRATOR_SCENE] = new JoystickCalibratorScene(this);
+  scenes[KNOB_SCENE] = new KnobScene(this);
   scenes[currentScene]->init();
 }
 
@@ -44,26 +44,17 @@ Joystick *Squidbox::getJoystick()
   return joystick;
 }
 
+Knob *Squidbox::getKnob()
+{
+  return knob;
+}
+
+Button **Squidbox::getButtons()
+{
+  return buttons;
+}
+
 Button *Squidbox::getButton(int index)
 {
-  switch(index) {
-        case 1:
-            return this->button1;
-        case 2:
-            return this->button2;
-        case 3:
-            return this->button3;
-        case 4:
-            return this->button4;
-        case 5:
-            return this->button5;
-        case 6:
-            return this->button6;
-        case 7:
-            return this->button7;
-        case 8:
-            return this->button8;
-        default:
-            return this->button1;
-  }
+  return buttons[index];
 }
