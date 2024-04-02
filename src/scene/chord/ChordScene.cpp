@@ -5,6 +5,9 @@ ChordScene::ChordScene(Squidbox *squidbox)
 {
   this->squidbox = squidbox;
   type = CHORD_SCENE;
+  root = NOTE_C4;
+  scale = MAJOR_SCALE;
+  chordType = TRIAD;
 }
 
 void ChordScene::init()
@@ -12,16 +15,39 @@ void ChordScene::init()
   Serial.println("ChordScene init");
 }
 
+void ChordScene::playChord(int index, bool on)
+{
+  int *notes = scale->getNotesFromChord(root, index, chordType);
+  for (int i = 0; i < chordType.numNotes; i++)
+  {
+    if (on)
+    {
+      BLEMidiServer.noteOn(0, notes[i], 127);
+      Serial.printf("Note %d on %d\n", i, notes[i]);
+    }
+    else
+    {
+      BLEMidiServer.noteOff(0, notes[i], 127);
+      Serial.printf("Note %d off %d\n", i, notes[i]);
+    }
+  }
+}
+
 void ChordScene::update()
 {
   if (BLEMidiServer.isConnected())
   {
-    // If we've got a connection, we send an A4 during one second, at full velocity (127)
-    BLEMidiServer.noteOn(0, 69, 127);
-    Serial.println("On");
-    delay(1000);
-    BLEMidiServer.noteOff(0, 69, 127); // Then we stop the note and make a delay of one second before returning to the beginning of the loop
-    delay(1000);
-    Serial.println("Off");
+    for (int i = 0; i < NUM_BUTTONS; i++)
+    {
+      Button *button = squidbox->getButton(i);
+      if (squidbox->getButton(i)->isPressed())
+      {
+        playChord(i, true);
+      }
+      else if (squidbox->getButton(i)->isReleased())
+      {
+        playChord(i, false);
+      }
+    }
   }
 }

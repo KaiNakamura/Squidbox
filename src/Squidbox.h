@@ -7,19 +7,26 @@
 #include "scene/chord/ChordScene.h"
 #include "scene/joystick-calibrator/JoystickCalibratorScene.h"
 #include "scene/knob/KnobScene.h"
+#include "scene/button/ButtonScene.h"
 #include "config/config.h"
 #include "config/pins.h"
 #include "components/joystick/Joystick.h"
 #include "components/knob/Knob.h"
+#include "components/button/Button.h"
+
+const int NUM_BUTTONS = 8;
 
 class Squidbox
 {
 private:
   Scene *scenes[NUM_SCENES];
-  int currentScene = KNOB_SCENE;
+  int currentScene = CHORD_SCENE;
 
   Joystick *joystick;
   Knob *knob;
+  Button *backButton;
+  Button *okButton;
+  Button *buttons[NUM_BUTTONS];
 
 public:
   Squidbox();
@@ -28,4 +35,8 @@ public:
   void switchTo(SceneType scene);
   Joystick *getJoystick();
   Knob *getKnob();
+  Button *getBackButton();
+  Button *getOkButton();
+  Button **getButtons();
+  Button *getButton(int index);
 };
