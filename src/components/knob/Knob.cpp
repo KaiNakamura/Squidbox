@@ -8,9 +8,10 @@ Knob::Knob(int aPin, int bPin, int buttonPin)
   knob->begin();
 }
 
+// TODO: This function does not currently work, something with the wiring is messed up
 bool Knob::isPressed()
 {
-  return !digitalRead(buttonPin);
+  return digitalRead(buttonPin);
 }
 
 int Knob::getCount()
@@ -21,4 +22,30 @@ int Knob::getCount()
 void Knob::clearCount()
 {
   knob->clearCountValue();
+}
+
+void Knob::setEventUserData(void *usr_data)
+{
+  // Ignore that they mispelled Data as Date in the ESP_Knob library...
+  knob->setEventUserDate(usr_data);
+}
+
+void Knob::attachLeftEventCallback(std::function<void(int, void *)> callback)
+{
+  knob->attachLeftEventCallback(callback);
+}
+
+void Knob::detachLeftEventCallback(void)
+{
+  knob->detachLeftEventCallback();
+}
+
+void Knob::attachRightEventCallback(std::function<void(int, void *)> callback)
+{
+  knob->attachRightEventCallback(callback);
+}
+
+void Knob::detachRightEventCallback(void)
+{
+  knob->detachRightEventCallback();
 }
