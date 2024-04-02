@@ -1,11 +1,11 @@
 #include "Joystick.h"
 
-Joystick::Joystick(int xPin, int yPin, int switchPin)
+Joystick::Joystick(int xPin, int yPin, int buttonPin)
 {
   this->xPin = xPin;
   this->yPin = yPin;
-  this->switchPin = switchPin;
-  pinMode(switchPin, INPUT_PULLUP);
+  this->buttonPin = buttonPin;
+  pinMode(buttonPin, INPUT_PULLUP);
 }
 
 float Joystick::map(float x, float inMin, float inMax, float outMin, float outMax)
@@ -48,7 +48,7 @@ float Joystick::getY()
 bool Joystick::isPressed()
 {
   // digitalRead returns 0 when pressed, so flip it
-  return !digitalRead(switchPin);
+  return !digitalRead(buttonPin);
 }
 
 Direction Joystick::getDirection()

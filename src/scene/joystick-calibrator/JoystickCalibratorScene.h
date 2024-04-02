@@ -1,7 +1,6 @@
 #pragma once
 
 #include "scene/Scene.h"
-#include "components/joystick/Joystick.h"
 #include "util/moving-average/MovingAverage.h"
 
 class JoystickCalibratorScene : public Scene
