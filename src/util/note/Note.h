@@ -2,6 +2,21 @@
 
 enum Note
 {
+  NOTE_A0 = 21,
+  NOTE_ASHARP0 = 22,
+  NOTE_B0 = 23,
+  NOTE_C1 = 24,
+  NOTE_CSHARP1 = 25,
+  NOTE_D1 = 26,
+  NOTE_DSHARP1 = 27,
+  NOTE_E1 = 28,
+  NOTE_F1 = 29,
+  NOTE_FSHARP1 = 30,
+  NOTE_G1 = 31,
+  NOTE_GSHARP1 = 32,
+  NOTE_A1 = 33,
+  NOTE_ASHARP1 = 34,
+  NOTE_B1 = 35,
   NOTE_C2 = 36,
   NOTE_CSHARP2 = 37,
   NOTE_D2 = 38,
@@ -84,4 +99,19 @@ enum Note
   NOTE_G8 = 115,
   NOTE_GSHARP8 = 116,
   NOTE_A8 = 117,
+  NOTE_ASHARP8 = 118,
+  NOTE_B8 = 119,
+  NOTE_C9 = 120,
+  NOTE_CSHARP9 = 121,
+  NOTE_D9 = 122,
+  NOTE_DSHARP9 = 123,
+  NOTE_E9 = 124,
+  NOTE_F9 = 125,
+  NOTE_FSHARP9 = 126,
+  NOTE_G9 = 127
 };
+
+Note getNextNote(Note note, Note minNote, Note maxNote);
+Note getPreviousNote(Note note, Note minNote, Note maxNote);
+Note getNextNote(Note note);
+Note getPreviousNote(Note note);

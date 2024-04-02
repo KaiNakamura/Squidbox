@@ -13,6 +13,28 @@ ChordScene::ChordScene(Squidbox *squidbox)
 void ChordScene::init()
 {
   Serial.println("ChordScene init");
+  Knob *knob = squidbox->getKnob();
+  knob->attachLeftEventCallback(onKnobLeft);
+  knob->attachRightEventCallback(onKnobRight);
+  knob->setEventUserData(this);
+}
+
+void ChordScene::onKnobLeft(int count, void *usr_data)
+{
+  ChordScene *self = static_cast<ChordScene *>(usr_data);
+  if (count % 2 == 0)
+  {
+    self->root = getPreviousNote(self->root, self->MIN_NOTE, self->MAX_NOTE);
+  }
+}
+
+void ChordScene::onKnobRight(int count, void *usr_data)
+{
+  ChordScene *self = static_cast<ChordScene *>(usr_data);
+  if (count % 2 == 0)
+  {
+    self->root = getNextNote(self->root, self->MIN_NOTE, self->MAX_NOTE);
+  }
 }
 
 void ChordScene::playChord(int index, bool on)
@@ -23,12 +45,10 @@ void ChordScene::playChord(int index, bool on)
     if (on)
     {
       BLEMidiServer.noteOn(0, notes[i], 127);
-      Serial.printf("Note %d on %d\n", i, notes[i]);
     }
     else
     {
       BLEMidiServer.noteOff(0, notes[i], 127);
-      Serial.printf("Note %d off %d\n", i, notes[i]);
     }
   }
 }

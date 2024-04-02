@@ -1,7 +1,7 @@
 #pragma once
 
 #include "scene/Scene.h"
-#include "util/Note.h"
+#include "util/note/Note.h"
 #include "util/ChordType.h"
 #include "util/scale/Scale.h"
 
@@ -11,6 +11,10 @@ private:
   Note root;
   Scale *scale;
   ChordType chordType;
+  static const Note MIN_NOTE = NOTE_A0;
+  static const Note MAX_NOTE = NOTE_G8;
+  static void onKnobLeft(int count, void *usr_data);
+  static void onKnobRight(int count, void *usr_data);
 
 public:
   ChordScene(Squidbox *squidbox);
