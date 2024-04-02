@@ -14,6 +14,7 @@ bool Knob::isPressed()
   return digitalRead(buttonPin);
 }
 
+// TODO: For some reason the knob count increases by 2 for every click, should be changed to 1 per click
 int Knob::getCount()
 {
   return knob->getCountValue();
