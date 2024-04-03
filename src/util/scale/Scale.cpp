@@ -1,14 +1,20 @@
 #include "Scale.h"
 
-Scale *MAJOR_SCALE = new Scale(7, new int[7]{0, 2, 4, 5, 7, 9, 11});
-Scale *MINOR_SCALE = new Scale(7, new int[7]{0, 2, 3, 5, 7, 8, 10});
-Scale *MAJOR_PENTATONIC_SCALE = new Scale(5, new int[5]{0, 2, 4, 7, 9});
-Scale *MINOR_PENTATONIC_SCALE = new Scale(5, new int[5]{0, 3, 5, 7, 10});
+Scale *MAJOR_SCALE = new Scale("Major", 7, new int[7]{0, 2, 4, 5, 7, 9, 11});
+Scale *MINOR_SCALE = new Scale("Minor", 7, new int[7]{0, 2, 3, 5, 7, 8, 10});
+Scale *MAJOR_PENTATONIC_SCALE = new Scale("Major Pentatonic", 5, new int[5]{0, 2, 4, 7, 9});
+Scale *MINOR_PENTATONIC_SCALE = new Scale("Mino Pentatonic", 5, new int[5]{0, 3, 5, 7, 10});
 
-Scale::Scale(int numNotes, int *semitones)
+Scale::Scale(char *name, int numNotes, int *semitones)
 {
-  this->numNotes = 7;
+  this->name = name;
+  this->numNotes = numNotes;
   this->semitones = semitones;
+}
+
+const char *Scale::getName()
+{
+  return name;
 }
 
 int Scale::getNote(int root, int index)

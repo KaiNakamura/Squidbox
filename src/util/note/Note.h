@@ -111,7 +111,12 @@ enum Note
   NOTE_G9 = 127
 };
 
+Note getNextNote(Note note, Note minNote, Note maxNote, bool wrap);
+Note getPreviousNote(Note note, Note minNote, Note maxNote, bool wrap);
 Note getNextNote(Note note, Note minNote, Note maxNote);
 Note getPreviousNote(Note note, Note minNote, Note maxNote);
+Note getNextNote(Note note, bool wrap);
+Note getPreviousNote(Note note, bool wrap);
 Note getNextNote(Note note);
 Note getPreviousNote(Note note);
+const char *toString(Note note);

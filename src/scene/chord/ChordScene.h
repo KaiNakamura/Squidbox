@@ -11,8 +11,8 @@ private:
   Note root;
   Scale *scale;
   ChordType chordType;
-  static const Note MIN_NOTE = NOTE_A0;
-  static const Note MAX_NOTE = NOTE_G8;
+  static const Note MIN_NOTE = NOTE_C1;
+  static const Note MAX_NOTE = NOTE_C7;
   static void onKnobLeft(int count, void *usr_data);
   static void onKnobRight(int count, void *usr_data);
   void toggleScale();

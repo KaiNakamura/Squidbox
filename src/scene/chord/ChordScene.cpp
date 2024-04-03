@@ -68,24 +68,38 @@ void ChordScene::toggleScale()
 
 void ChordScene::update()
 {
-  if (BLEMidiServer.isConnected())
-  {
-    if (squidbox->getOkButton()->isPressed())
-    {
-      toggleScale();
-    }
+  Screen *screen = squidbox->getScreen();
+  screen->clear();
+  screen->getDisplay()->setTextSize(2);
+  screen->getDisplay()->setTextColor(WHITE);
+  screen->getDisplay()->setCursor(0, 0);
 
-    for (int i = 0; i < NUM_BUTTONS; i++)
+  if (!BLEMidiServer.isConnected())
+  {
+    screen->getDisplay()->println("Waiting...");
+    screen->update();
+    return;
+  }
+
+  if (squidbox->getOkButton()->isPressed())
+  {
+    toggleScale();
+  }
+
+  for (int i = 0; i < NUM_BUTTONS; i++)
+  {
+    Button *button = squidbox->getButton(i);
+    if (squidbox->getButton(i)->isPressed())
     {
-      Button *button = squidbox->getButton(i);
-      if (squidbox->getButton(i)->isPressed())
-      {
-        playChord(i, true);
-      }
-      else if (squidbox->getButton(i)->isReleased())
-      {
-        playChord(i, false);
-      }
+      playChord(i, true);
+    }
+    else if (squidbox->getButton(i)->isReleased())
+    {
+      playChord(i, false);
     }
   }
+
+  screen->getDisplay()->printf("%s\n", toString(root));
+  screen->getDisplay()->printf("%s\n", scale->getName());
+  screen->update();
 }
