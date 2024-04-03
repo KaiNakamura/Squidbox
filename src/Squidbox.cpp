@@ -2,6 +2,7 @@
 
 Squidbox::Squidbox()
 {
+  // TODO: Figure out how to make name unique
   BLEMidiServer.begin("Squidbox");
   BLEMidiServer.enableDebugging();
   screen = new Screen();
