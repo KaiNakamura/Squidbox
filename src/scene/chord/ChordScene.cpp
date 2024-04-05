@@ -68,12 +68,14 @@ void ChordScene::toggleScale()
 
 void ChordScene::update()
 {
+  // Set display
   Screen *screen = squidbox->getScreen();
   screen->clear();
   screen->getDisplay()->setTextSize(2);
   screen->getDisplay()->setTextColor(WHITE);
   screen->getDisplay()->setCursor(0, 0);
 
+  // Check if bluetooth is connected
   if (!BLEMidiServer.isConnected())
   {
     screen->getDisplay()->println("Waiting...");
@@ -86,6 +88,7 @@ void ChordScene::update()
     toggleScale();
   }
 
+  // Button code
   for (int i = 0; i < NUM_BUTTONS; i++)
   {
     Button *button = squidbox->getButton(i);
@@ -99,7 +102,11 @@ void ChordScene::update()
     }
   }
 
+  // Screen code
   screen->getDisplay()->printf("%s\n", toString(root));
   screen->getDisplay()->printf("%s\n", scale->getName());
+  screen->printKeyboard(root, scale->getName());
+
   screen->update();
+
 }

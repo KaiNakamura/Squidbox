@@ -18,4 +18,6 @@ public:
   void clear();
   void update();
   Adafruit_SSD1306 *getDisplay();
+  void printKeyboard(int rootNote, String chordType);
+
 };
