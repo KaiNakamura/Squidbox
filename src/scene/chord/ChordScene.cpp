@@ -105,6 +105,9 @@ void ChordScene::update()
   // Screen code
   screen->getDisplay()->printf("%s\n", toString(root));
   screen->getDisplay()->printf("%s\n", scale->getName());
+
+  // Draw keyboard
+  screen->getDisplay()->drawRect(0, 40, 128, 20, WHITE);
   screen->printKeyboard(root, scale->getName());
 
   screen->update();
