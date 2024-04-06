@@ -8,6 +8,7 @@
 class Screen
 {
 private:
+  const int STARTING_KEY_HEIGHT = 41;
   const int WHITE_KEY_WIDTH = 10; // 1/10 of the screen for 10 white keys
   const int WHITE_KEY_HEIGHT = 20; // 1/3 height of screen
   const int BLACK_KEY_WIDTH = 10; // 1/3 width of white keys

@@ -50,7 +50,7 @@ void Screen::printKeyboard(int rootNote, String chordType)
       if (keyIndex != 1 && keyIndex != 6 && keyIndex != 8 && keyIndex != 13 && keyIndex != 15 && keyIndex != 3 && keyIndex != 10)
       {
         // Draw white key
-        display.drawRect(whiteKeyPos, 41, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_WHITE);
+        display.drawRect(whiteKeyPos, STARTING_KEY_HEIGHT, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_WHITE);
         whiteKeyPos = whiteKeyPos + WHITE_KEY_WIDTH + 5;
       }
     }
@@ -76,12 +76,12 @@ void Screen::printKeyboard(int rootNote, String chordType)
 
       if (keyIndex == 1 || keyIndex == 6 || keyIndex == 8 || keyIndex == 13 || keyIndex == 15)
       { // 41 is the starting height of the keys
-        display.fillRect(blackKeyPos, 41, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_BLACK);
+        display.fillRect(blackKeyPos, STARTING_KEY_HEIGHT, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_BLACK);
         blackKeyPos = blackKeyPos + WHITE_KEY_WIDTH + 5;
       }
       else if (keyIndex == 3 || keyIndex == 10)
       {
-        display.fillRect(blackKeyPos, 41, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_BLACK);
+        display.fillRect(blackKeyPos, STARTING_KEY_HEIGHT, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_BLACK);
         blackKeyPos = blackKeyPos + 2 * WHITE_KEY_WIDTH + 2 * 5;
       }
     }
