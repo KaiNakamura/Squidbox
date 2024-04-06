@@ -25,7 +25,7 @@ Adafruit_SSD1306 *Screen::getDisplay()
 void Screen::printKeyboard(int rootNote, String chordType)
 {
   int whiteKeyPos = 2; // Initial position of the first white key
-  int blackKeyPos = 7; // Initial position of the first black key
+  int blackKeyPos = 8; // Initial position of the first black key
 
  
     for (int keyIndex = 0; keyIndex < 17; keyIndex++)
@@ -50,8 +50,8 @@ void Screen::printKeyboard(int rootNote, String chordType)
       if (keyIndex != 1 && keyIndex != 6 && keyIndex != 8 && keyIndex != 13 && keyIndex != 15 && keyIndex != 3 && keyIndex != 10)
       {
         // Draw white key
-        display.drawRect(whiteKeyPos, STARTING_KEY_HEIGHT, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_WHITE);
-        whiteKeyPos = whiteKeyPos + WHITE_KEY_WIDTH + 5;
+        display.drawRect(whiteKeyPos, STARTING_KEY_Y, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT, WHITE);
+        whiteKeyPos = whiteKeyPos + WHITE_KEY_WIDTH + 1;
       }
     }
     // Draw black keys
@@ -75,14 +75,14 @@ void Screen::printKeyboard(int rootNote, String chordType)
       }
 
       if (keyIndex == 1 || keyIndex == 6 || keyIndex == 8 || keyIndex == 13 || keyIndex == 15)
-      { // 41 is the starting height of the keys
-        display.fillRect(blackKeyPos, STARTING_KEY_HEIGHT, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_BLACK);
-        blackKeyPos = blackKeyPos + WHITE_KEY_WIDTH + 5;
+      {
+        display.fillRect(blackKeyPos, STARTING_KEY_Y, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, WHITE);
+        blackKeyPos = blackKeyPos + WHITE_KEY_WIDTH + 1;
       }
       else if (keyIndex == 3 || keyIndex == 10)
       {
-        display.fillRect(blackKeyPos, STARTING_KEY_HEIGHT, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, isPlayedNote ? ST77XX_ORANGE : ST77XX_BLACK);
-        blackKeyPos = blackKeyPos + 2 * WHITE_KEY_WIDTH + 2 * 5;
+        display.fillRect(blackKeyPos, STARTING_KEY_Y, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, WHITE);
+        blackKeyPos = blackKeyPos + 2*WHITE_KEY_WIDTH + 2*1;
       }
     }
   }

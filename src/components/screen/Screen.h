@@ -8,16 +8,19 @@
 class Screen
 {
 private:
-  const int STARTING_KEY_HEIGHT = 41;
-  const int WHITE_KEY_WIDTH = 10; // 1/10 of the screen for 10 white keys
-  const int WHITE_KEY_HEIGHT = 20; // 1/3 height of screen
-  const int BLACK_KEY_WIDTH = 10; // 1/3 width of white keys
-  const int BLACK_KEY_HEIGHT = 8; // 4/10 of height of white keys
+  const int STARTING_KEY_Y = 40;
+
+  const int WHITE_KEY_WIDTH = 8; 
+  const int WHITE_KEY_HEIGHT = 20;
+
+  const int BLACK_KEY_WIDTH = 5; 
+  const int BLACK_KEY_HEIGHT = 12; 
+  
   const int ST77XX_WHITE = 0xFFFF;
   const int ST77XX_BLACK = 0x0000;
   const int ST77XX_ORANGE = 0xFD20;
-  const int WIDTH = 128;
-  const int HEIGHT = 64;
+  const int WIDTH = 128; // OLED display width, in pixels
+  const int HEIGHT = 64; // OLED display height, in pixels
   const int SCREEN_ADDRESS = 0x3C;
   Adafruit_SSD1306 display;
 
