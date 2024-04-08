@@ -26,5 +26,6 @@ void JoystickCalibratorScene::update()
   float rawY = yAverage->next(joystick->getRawY());
   float x = joystick->getX();
   float y = joystick->getY();
-  Serial.printf("(rawX, rawY): (%.0f, %.0f), (x, y): (%.2f, %.2f)\n", rawX, rawY, x, y);
+  Direction direction = joystick->getDirection();
+  Serial.printf("(rawX, rawY): (%.0f, %.0f), (x, y): (%.2f, %.2f), %s\n", rawX, rawY, x, y, directionToString(direction));
 }

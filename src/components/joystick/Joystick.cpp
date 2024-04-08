@@ -1,10 +1,30 @@
 #include "Joystick.h"
 
+const char *directionToString(Direction direction)
+{
+  switch (direction)
+  {
+  case NONE:
+    return "NONE";
+  case UP:
+    return "UP";
+  case RIGHT:
+    return "RIGHT";
+  case DOWN:
+    return "DOWN";
+  case LEFT:
+    return "LEFT";
+  default:
+    return "UNKNOWN";
+  }
+}
+
 Joystick::Joystick(int xPin, int yPin, int buttonPin)
 {
   this->xPin = xPin;
   this->yPin = yPin;
   this->buttonPin = buttonPin;
+  lastDirection = Direction::NONE;
   pinMode(buttonPin, INPUT_PULLUP);
 }
 
@@ -77,4 +97,12 @@ Direction Joystick::getDirection()
   {
     return Direction::RIGHT;
   }
+}
+
+Direction Joystick::getDirectionDebounced()
+{
+  Direction direction = getDirection();
+  bool wasDirectionJustInputted = direction != lastDirection;
+  lastDirection = direction;
+  return wasDirectionJustInputted ? direction : NONE;
 }

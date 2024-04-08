@@ -11,6 +11,8 @@ enum Direction
   LEFT,
 };
 
+const char *directionToString(Direction direction);
+
 class Joystick
 {
 private:
@@ -20,6 +22,7 @@ private:
   int xPin;
   int yPin;
   int buttonPin;
+  Direction lastDirection;
   static float map(float x, float inMin, float inMax, float outMin, float outMax);
   static float convertRawValue(int raw, int center);
 
@@ -67,4 +70,11 @@ public:
    * @return Direction
    */
   Direction getDirection();
+
+  /**
+   * @brief Returns the debounced direction of the joystick
+   *
+   * @return Direction
+   */
+  Direction getDirectionDebounced();
 };

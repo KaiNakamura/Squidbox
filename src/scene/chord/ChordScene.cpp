@@ -99,7 +99,7 @@ void ChordScene::update()
     }
   }
 
-  screen->getDisplay()->printf("%s\n", toString(root));
+  screen->getDisplay()->printf("%s\n", noteToString(root));
   screen->getDisplay()->printf("%s\n", scale->getName());
   screen->update();
 }
