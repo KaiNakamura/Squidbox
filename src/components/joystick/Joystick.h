@@ -16,15 +16,19 @@ const char *directionToString(Direction direction);
 class Joystick
 {
 private:
-  const float JOYSTICK_DEADZONE = 0.1;
-  const int X_CENTER = 2863;
-  const int Y_CENTER = 2832;
+  const float JOYSTICK_DEADZONE = 0.5;
+  const int X_CENTER = 1848;
+  const int Y_CENTER = 1868;
+  const int X_MIN = 0;
+  const int Y_MIN = 0;
+  const int X_MAX = 4095;
+  const int Y_MAX = 4095;
   int xPin;
   int yPin;
   int buttonPin;
   Direction lastDirection;
   static float map(float x, float inMin, float inMax, float outMin, float outMax);
-  static float convertRawValue(int raw, int center);
+  static float convertRawValue(int raw, int center, int min, int max);
 
 public:
   Joystick(int xPin, int yPin, int buttonPin);

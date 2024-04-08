@@ -33,15 +33,15 @@ float Joystick::map(float x, float inMin, float inMax, float outMin, float outMa
   return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }
 
-float Joystick::convertRawValue(int raw, int center)
+float Joystick::convertRawValue(int raw, int center, int min, int max)
 {
   if (raw > center)
   {
-    return map(raw, center, 4095, 0, 1);
+    return map(raw, center, max, 0, 1);
   }
   else
   {
-    return map(raw, 0, center, -1, 0);
+    return map(raw, min, center, -1, 0);
   }
 }
 
@@ -57,12 +57,12 @@ int Joystick::getRawY()
 
 float Joystick::getX()
 {
-  return convertRawValue(getRawX(), X_CENTER);
+  return convertRawValue(getRawX(), X_CENTER, X_MIN, X_MAX);
 }
 
 float Joystick::getY()
 {
-  return convertRawValue(getRawY(), Y_CENTER);
+  return convertRawValue(getRawY(), Y_CENTER, Y_MIN, Y_MAX);
 }
 
 bool Joystick::isPressed()
@@ -81,21 +81,25 @@ Direction Joystick::getDirection()
   {
     return Direction::NONE;
   }
-  else if (y <= x && y <= -x + 2)
+  else if (y > 0 && y > fabs(x))
   {
     return Direction::UP;
   }
-  else if (y > x && y > -x + 2)
+  else if (y < 0 && -y > fabs(x))
   {
     return Direction::DOWN;
   }
-  else if (y > x && y < -x + 2)
+  else if (x < 0 && -x > fabs(y))
   {
     return Direction::LEFT;
   }
-  else
+  else if (x > 0 && x > fabs(y))
   {
     return Direction::RIGHT;
+  }
+  else
+  {
+    return Direction::NONE; // Catch-all case, just in case
   }
 }
 

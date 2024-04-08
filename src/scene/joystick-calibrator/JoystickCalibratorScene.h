@@ -8,6 +8,7 @@ class JoystickCalibratorScene : public Scene
 private:
   const int NUM_SAMPLES = 200;
   MovingAverage *xAverage, *yAverage;
+  int xMin, yMin, xMax, yMax;
 
 public:
   JoystickCalibratorScene(Squidbox *squidbox);
