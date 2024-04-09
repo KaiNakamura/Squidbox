@@ -24,7 +24,6 @@ Joystick::Joystick(int xPin, int yPin, int buttonPin)
   this->xPin = xPin;
   this->yPin = yPin;
   this->buttonPin = buttonPin;
-  lastDirection = Direction::NONE;
   pinMode(buttonPin, INPUT_PULLUP);
 }
 
@@ -103,10 +102,34 @@ Direction Joystick::getDirection()
   }
 }
 
-Direction Joystick::getDirectionDebounced()
+bool Joystick::wasLeftJustInputted()
 {
-  Direction direction = getDirection();
-  bool wasDirectionJustInputted = direction != lastDirection;
-  lastDirection = direction;
-  return wasDirectionJustInputted ? direction : NONE;
+  bool leftInputted = getDirection() == LEFT;
+  bool leftJustInputted = leftInputted && !wasLeft;
+  wasLeft = leftInputted;
+  return leftJustInputted;
+}
+
+bool Joystick::wasRightJustInputted()
+{
+  bool rightInputted = getDirection() == RIGHT;
+  bool rightJustInputted = rightInputted && !wasRight;
+  wasRight = rightInputted;
+  return rightJustInputted;
+}
+
+bool Joystick::wasUpJustInputted()
+{
+  bool upInputted = getDirection() == UP;
+  bool upJustInputted = upInputted && !wasUp;
+  wasUp = upInputted;
+  return upJustInputted;
+}
+
+bool Joystick::wasDownJustInputted()
+{
+  bool downInputted = getDirection() == DOWN;
+  bool downJustInputted = downInputted && !wasDown;
+  wasDown = downInputted;
+  return downJustInputted;
 }

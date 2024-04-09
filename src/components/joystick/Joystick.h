@@ -26,7 +26,7 @@ private:
   int xPin;
   int yPin;
   int buttonPin;
-  Direction lastDirection;
+  bool wasLeft, wasRight, wasUp, wasDown;
   static float map(float x, float inMin, float inMax, float outMin, float outMax);
   static float convertRawValue(int raw, int center, int min, int max);
 
@@ -76,9 +76,34 @@ public:
   Direction getDirection();
 
   /**
-   * @brief Returns the debounced direction of the joystick
+   * @brief Returns if left was just inputted on the joystick
    *
-   * @return Direction
+   * @return true if left was just inputted
+   * @return false if left was not just inputted
    */
-  Direction getDirectionDebounced();
+  bool wasLeftJustInputted();
+
+  /**
+   * @brief Returns if right was just inputted on the joystick
+   *
+   * @return true if right was just inputted
+   * @return false if right was not just inputted
+   */
+  bool wasRightJustInputted();
+
+  /**
+   * @brief Returns if up was just inputted on the joystick
+   *
+   * @return true if up was just inputted
+   * @return false if up was not just inputted
+   */
+  bool wasUpJustInputted();
+
+  /**
+   * @brief Returns if down was just inputted on the joystick
+   *
+   * @return true if down was just inputted
+   * @return false if down was not just inputted
+   */
+  bool wasDownJustInputted();
 };

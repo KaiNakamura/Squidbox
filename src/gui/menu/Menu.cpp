@@ -11,6 +11,17 @@ Menu::Menu(char *name, int numMenuItems, MenuItem *menuItems)
 
 void Menu::update(Squidbox *squidbox)
 {
+  Joystick *joystick = squidbox->getJoystick();
+
+  if (joystick->wasUpJustInputted())
+  {
+    selectedIndex = getPreviousIndex();
+  }
+  else if (joystick->wasDownJustInputted())
+  {
+    selectedIndex = getNextIndex();
+  }
+
   Screen *screen = squidbox->getScreen();
   screen->clear();
   screen->getDisplay()->setTextSize(2);
@@ -27,4 +38,14 @@ void Menu::update(Squidbox *squidbox)
   }
 
   screen->update();
+}
+
+int Menu::getNextIndex()
+{
+  return min(selectedIndex + 1, numMenuItems - 1);
+}
+
+int Menu::getPreviousIndex()
+{
+  return max(selectedIndex - 1, 0);
 }

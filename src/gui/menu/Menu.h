@@ -11,6 +11,8 @@ private:
   int numMenuItems;
   int selectedIndex;
   MenuItem *menuItems;
+  int getNextIndex();
+  int getPreviousIndex();
 
 public:
   Menu(char *name, int numMenuItems, MenuItem *menuItems);
