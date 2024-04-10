@@ -8,6 +8,7 @@ class MainScene : public Scene
 {
 private:
   Menu *menu;
+  static void switchToChordScene(Scene *scene);
 
 public:
   MainScene(Squidbox *squidbox);

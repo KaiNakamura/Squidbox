@@ -1,6 +1,6 @@
 #include "MenuItem.h"
 
-MenuItem::MenuItem(const char *name) : name(name), callback(nullptr) {}
+MenuItem::MenuItem(const char *name, Scene *scene) : name(name), scene(scene), callback(nullptr) {}
 
 const char *MenuItem::getName()
 {
@@ -17,7 +17,7 @@ void MenuItem::setCallback(CallbackFunction cb)
   callback = cb;
 }
 
-void MenuItem::onSelect(Scene *scene)
+void MenuItem::onSelect()
 {
   if (callback)
   {

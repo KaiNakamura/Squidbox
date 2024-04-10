@@ -21,6 +21,8 @@ protected:
   Squidbox *squidbox;
 
 public:
+  // TODO: Make constructor
+  Squidbox *getSquidbox();
   virtual void init();
   virtual void update();
 };
