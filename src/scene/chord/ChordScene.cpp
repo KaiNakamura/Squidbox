@@ -107,8 +107,7 @@ void ChordScene::update()
   screen->getDisplay()->printf("%s\n", scale->getName());
 
   // Draw keyboard
-  //screen->getDisplay()->drawRect(0, 40, 128, 20, WHITE);
-  screen->printKeyboard(root, scale->getName());
+  screen->printKeyboard(STARTING_KEY_Y, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, 17);
 
   screen->update();
 
