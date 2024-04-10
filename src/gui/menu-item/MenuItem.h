@@ -1,11 +1,20 @@
 #pragma once
 
+#include <functional>
+#include "scene/Scene.h"
+
 class MenuItem
 {
-private:
-  char *name;
-
 public:
-  MenuItem(char *name);
-  char *getName();
+  using CallbackFunction = std::function<void(Scene *)>;
+
+  MenuItem(const char *name);
+  const char *getName();
+  void setName(const char *name);
+  void setCallback(CallbackFunction cb);
+  void onSelect(Scene *scene);
+
+private:
+  const char *name;
+  CallbackFunction callback;
 };

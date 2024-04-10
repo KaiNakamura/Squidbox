@@ -1,11 +1,26 @@
 #include "MenuItem.h"
 
-MenuItem::MenuItem(char *name)
+MenuItem::MenuItem(const char *name) : name(name), callback(nullptr) {}
+
+const char *MenuItem::getName()
+{
+  return name;
+}
+
+void MenuItem::setName(const char *name)
 {
   this->name = name;
 }
 
-char *MenuItem::getName()
+void MenuItem::setCallback(CallbackFunction cb)
 {
-  return name;
+  callback = cb;
+}
+
+void MenuItem::onSelect(Scene *scene)
+{
+  if (callback)
+  {
+    callback(scene);
+  }
 }
