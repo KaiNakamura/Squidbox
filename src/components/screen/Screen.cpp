@@ -22,16 +22,18 @@ Adafruit_SSD1306 *Screen::getDisplay()
   return &display;
 }
 
+
 void Screen::printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKeyHeight, int blackKeyWidth, int blackKeyHeight, int numKeys)
 {
   int whiteKeyPos = 2; // Initial position of the first white key
   int blackKeyPos = 8; // Initial position of the first black key
 
- 
+  // Create an array that keeps teh starting position of each key indexed by the key index and then fill in the keys after the piano is printed
+   
     for (int keyIndex = 0; keyIndex < numKeys; keyIndex++)
     {
       int rootIndex = keyIndex % 12;
-      if (rootIndex != 1 && rootIndex != 6 && rootIndex != 8 && rootIndex != 13 && rootIndex != 15 && rootIndex != 3 && rootIndex != 10)
+      if (rootIndex != 1 && rootIndex != 6 && rootIndex != 8 && rootIndex != 3 && rootIndex != 10)
       {
         // Draw white key
         display.drawRect(whiteKeyPos, keyboardLocation, whiteKeyWidth, whiteKeyHeight, WHITE);
@@ -43,7 +45,7 @@ void Screen::printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKey
     for (int keyIndex = 0; keyIndex < numKeys; keyIndex++)
     {
       int rootIndex = keyIndex % 12;
-      if (rootIndex == 1 || rootIndex == 6 || rootIndex == 8 || rootIndex == 13 || rootIndex == 15)
+      if (rootIndex == 1 || rootIndex == 6 || rootIndex == 8)
       {
         display.fillRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, BLACK);
         display.drawRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, WHITE);
