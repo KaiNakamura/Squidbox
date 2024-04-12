@@ -2,10 +2,10 @@
 
 #include <Arduino.h>
 #include <BLEMidi.h>
+#include <esp_efuse.h>
 #include "scene/Scene.h"
 #include "scene/main/MainScene.h"
 #include "scene/chord/ChordScene.h"
-#include "scene/screen/ScreenScene.h"
 #include "scene/joystick-calibrator/JoystickCalibratorScene.h"
 #include "scene/knob/KnobScene.h"
 #include "scene/button/ButtonScene.h"
@@ -23,7 +23,6 @@ class Squidbox
 private:
   Scene *scenes[NUM_SCENES];
   int currentScene = MAIN_SCENE;
-
   Screen *screen;
   Joystick *joystick;
   Knob *knob;
@@ -43,4 +42,6 @@ public:
   Button *getOkButton();
   Button **getButtons();
   Button *getButton(int index);
+  const char *getDeviceId();
+  const char *getName();
 };

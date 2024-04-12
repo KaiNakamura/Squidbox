@@ -11,7 +11,7 @@ private:
   int *semitones;
 
 public:
-  Scale(char *name, int numNotes, int *semitones);
+  Scale(const char *name, int numNotes, int *semitones);
   const char *getName();
   int getNote(int root, int index);
   int *getNotesFromChord(int root, int index, ChordType chord);

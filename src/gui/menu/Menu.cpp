@@ -1,23 +1,19 @@
 #include "Menu.h"
 #include "Squidbox.h"
 
-Menu::Menu(char *name, int numMenuItems, MenuItem *menuItems, SceneType parentScene)
+Menu::Menu(const char *name, int numMenuItems, MenuItem **menuItems, SceneType parentScene)
+    : name(name), numMenuItems(numMenuItems), menuItems(menuItems), parentScene(parentScene), selectedIndex(0)
 {
-  this->name = name;
-  this->numMenuItems = numMenuItems;
-  this->menuItems = menuItems;
-  this->parentScene = parentScene;
-  selectedIndex = 0;
 }
 
-Menu::Menu(char *name, int numMenuItems, MenuItem *menuItems)
+Menu::Menu(const char *name, int numMenuItems, MenuItem **menuItems)
+    : Menu(name, numMenuItems, menuItems, NULL_SCENE)
 {
-  // TODO: figure out how to inherit constructors
-  this->name = name;
-  this->numMenuItems = numMenuItems;
-  this->menuItems = menuItems;
-  this->parentScene = nullptr;
-  selectedIndex = 0;
+}
+
+Menu::Menu(const char *name, SceneType parentScene)
+    : Menu(name, 0, nullptr, parentScene)
+{
 }
 
 void Menu::update(Squidbox *squidbox)
@@ -35,15 +31,18 @@ void Menu::update(Squidbox *squidbox)
   }
 
   // Handle ok button
-  Button *okButton = squidbox->getOkButton();
-
-  if (okButton->isPressed())
+  if (hasMenuItems())
   {
-    menuItems[selectedIndex].onSelect();
+    Button *okButton = squidbox->getOkButton();
+
+    if (okButton->isPressed())
+    {
+      menuItems[selectedIndex]->onSelect();
+    }
   }
 
   // Handle back button
-  if (parentScene)
+  if (hasParentScene())
   {
     Button *backButton = squidbox->getBackButton();
     if (backButton->isPressed())
@@ -56,11 +55,15 @@ void Menu::update(Squidbox *squidbox)
 
   Screen *screen = squidbox->getScreen();
   screen->clear();
-  screen->getDisplay()->setTextSize(2);
+  screen->getDisplay()->setTextSize(1);
   screen->getDisplay()->setTextColor(WHITE);
   screen->getDisplay()->setCursor(0, 0);
 
-  if (parentScene)
+  // TODO: Add a header bar that shows battery, BLE connection, etc.
+  // For now just printing an empty line
+  screen->getDisplay()->printf("\n");
+
+  if (hasParentScene())
   {
     screen->getDisplay()->write(ASCII_LEFT_ARROW);
   }
@@ -70,10 +73,25 @@ void Menu::update(Squidbox *squidbox)
   {
     int prefix = i == selectedIndex ? ASCII_RIGHT_FAT_ARROW : ASCII_NULL;
     screen->getDisplay()->write(prefix);
-    screen->getDisplay()->printf("%s\n", menuItems[i].getName());
+    screen->getDisplay()->printf("%s\n", menuItems[i]->getName());
   }
 
   screen->update();
+}
+
+void Menu::setName(const char *name)
+{
+  this->name = name;
+}
+
+bool Menu::hasMenuItems()
+{
+  return numMenuItems > 0;
+}
+
+bool Menu::hasParentScene()
+{
+  return parentScene != NULL_SCENE;
 }
 
 int Menu::getNextIndex()

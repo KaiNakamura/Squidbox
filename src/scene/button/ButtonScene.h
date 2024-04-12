@@ -6,6 +6,6 @@ class ButtonScene : public Scene
 {
 public:
   ButtonScene(Squidbox *squidbox);
-  void init();
-  void update();
+  void init() override;
+  void update() override;
 };

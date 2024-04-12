@@ -2,6 +2,8 @@
 
 MenuItem::MenuItem(const char *name, Scene *scene) : name(name), scene(scene), callback(nullptr) {}
 
+MenuItem::MenuItem(Scene *scene) : MenuItem("", scene) {}
+
 const char *MenuItem::getName()
 {
   return name;

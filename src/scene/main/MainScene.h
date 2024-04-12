@@ -7,11 +7,11 @@
 class MainScene : public Scene
 {
 private:
-  Menu *menu;
   static void switchToChordScene(Scene *scene);
+  static void switchToJoystickCalibratorScene(Scene *scene);
 
 public:
   MainScene(Squidbox *squidbox);
-  void init();
-  void update();
+  void init() override;
+  void update() override;
 };

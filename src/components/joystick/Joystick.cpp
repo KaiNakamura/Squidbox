@@ -19,11 +19,8 @@ const char *directionToString(Direction direction)
   }
 }
 
-Joystick::Joystick(int xPin, int yPin, int buttonPin)
+Joystick::Joystick(int xPin, int yPin, int buttonPin) : xPin(xPin), yPin(yPin), buttonPin(buttonPin), wasLeft(false), wasRight(false), wasUp(false), wasDown(false)
 {
-  this->xPin = xPin;
-  this->yPin = yPin;
-  this->buttonPin = buttonPin;
   pinMode(buttonPin, INPUT_PULLUP);
 }
 

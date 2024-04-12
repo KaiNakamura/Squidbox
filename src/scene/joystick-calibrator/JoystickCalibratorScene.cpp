@@ -1,14 +1,16 @@
 #include "JoystickCalibratorScene.h"
 #include "Squidbox.h"
 
-JoystickCalibratorScene::JoystickCalibratorScene(Squidbox *squidbox)
+JoystickCalibratorScene::JoystickCalibratorScene(Squidbox *squidbox) : Scene(squidbox, nullptr)
 {
   type = JOYSTICK_CALIBRATOR_SCENE;
-  this->squidbox = squidbox;
+  menu = new Menu("Joystick Calibrator", MAIN_SCENE);
 }
 
 void JoystickCalibratorScene::init()
 {
+  Scene::init();
+  Serial.println("JoystickCalibratorScene::init");
   xAverage = new MovingAverage(NUM_SAMPLES);
   yAverage = new MovingAverage(NUM_SAMPLES);
   xMin = 4096;
@@ -19,6 +21,7 @@ void JoystickCalibratorScene::init()
 
 void JoystickCalibratorScene::update()
 {
+  Scene::update();
   Joystick *joystick = squidbox->getJoystick();
   int rawX = joystick->getRawX();
   int rawY = joystick->getRawY();
