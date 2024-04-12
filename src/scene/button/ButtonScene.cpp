@@ -1,19 +1,20 @@
 #include "ButtonScene.h"
 #include "Squidbox.h"
 
-ButtonScene::ButtonScene(Squidbox *squidbox)
+ButtonScene::ButtonScene(Squidbox *squidbox) : Scene(squidbox, nullptr)
 {
   type = BUTTON_SCENE;
-  this->squidbox = squidbox;
+  menu = new Menu("Squidbox", MAIN_SCENE);
 }
 
 void ButtonScene::init()
 {
-  Serial.println("ButtonScene init");
+  Scene::init();
 }
 
 void ButtonScene::update()
 {
+  Scene::update();
   for (int i = 0; i < NUM_BUTTONS; i++)
   {
     Button *button = squidbox->getButton(i);

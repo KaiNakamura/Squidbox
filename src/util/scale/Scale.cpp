@@ -5,12 +5,7 @@ Scale *MINOR_SCALE = new Scale("Minor", 7, new int[7]{0, 2, 3, 5, 7, 8, 10});
 Scale *MAJOR_PENTATONIC_SCALE = new Scale("Major Pentatonic", 5, new int[5]{0, 2, 4, 7, 9});
 Scale *MINOR_PENTATONIC_SCALE = new Scale("Mino Pentatonic", 5, new int[5]{0, 3, 5, 7, 10});
 
-Scale::Scale(char *name, int numNotes, int *semitones)
-{
-  this->name = name;
-  this->numNotes = numNotes;
-  this->semitones = semitones;
-}
+Scale::Scale(const char *name, int numNotes, int *semitones) : name(name), numNotes(numNotes), semitones(semitones) {}
 
 const char *Scale::getName()
 {

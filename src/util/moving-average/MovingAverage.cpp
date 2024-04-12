@@ -1,8 +1,7 @@
 #include "MovingAverage.h"
 
-MovingAverage::MovingAverage(int size)
+MovingAverage::MovingAverage(int size) : size(size)
 {
-  this->size = size;
   window = new int[size];
 }
 

@@ -1,22 +1,65 @@
 #include "ChordScene.h"
 #include "Squidbox.h"
 
-ChordScene::ChordScene(Squidbox *squidbox)
+ChordScene::ChordScene(Squidbox *squidbox) : Scene(squidbox, nullptr)
 {
-  this->squidbox = squidbox;
   type = CHORD_SCENE;
   root = NOTE_C4;
   scale = MAJOR_SCALE;
   chordType = TRIAD;
+
+  connectedMenuItem = new MenuItem(this);
+  rootMenuItem = new MenuItem(this);
+  scaleMenuItem = new MenuItem(this);
+
+  MenuItem **menuItems = new MenuItem *[3];
+  menuItems[0] = connectedMenuItem;
+  menuItems[1] = rootMenuItem;
+  menuItems[2] = scaleMenuItem;
+
+  menu = new Menu("Chords", 3, menuItems, MAIN_SCENE);
 }
 
 void ChordScene::init()
 {
-  Serial.println("ChordScene init");
+  Scene::init();
+  Serial.println("ChordScene::init");
   Knob *knob = squidbox->getKnob();
   knob->attachLeftEventCallback(onKnobLeft);
   knob->attachRightEventCallback(onKnobRight);
   knob->setEventUserData(this);
+}
+
+void ChordScene::update()
+{
+  Scene::update();
+
+  // Update menu items
+  rootMenuItem->setName(noteToString(root));
+  scaleMenuItem->setName(scale->getName());
+
+  // TODO: Does not update to "Not Connected" when disconnected for some reason
+  connectedMenuItem->setName(BLEMidiServer.isConnected() ? "Connected" : "Not Connected");
+
+  // Check if the OK button is pressed
+  if (squidbox->getOkButton()->isPressed())
+  {
+    toggleScale();
+  }
+
+  // Check if any of the buttons are pressed
+  for (int i = 0; i < NUM_BUTTONS; i++)
+  {
+    Button *button = squidbox->getButton(i);
+    if (squidbox->getButton(i)->isPressed())
+    {
+      playChord(i, true);
+    }
+    else if (squidbox->getButton(i)->isReleased())
+    {
+      playChord(i, false);
+    }
+  }
 }
 
 void ChordScene::onKnobLeft(int count, void *usr_data)
@@ -64,42 +107,4 @@ void ChordScene::toggleScale()
   {
     scale = MAJOR_SCALE;
   }
-}
-
-void ChordScene::update()
-{
-  Screen *screen = squidbox->getScreen();
-  screen->clear();
-  screen->getDisplay()->setTextSize(2);
-  screen->getDisplay()->setTextColor(WHITE);
-  screen->getDisplay()->setCursor(0, 0);
-
-  if (!BLEMidiServer.isConnected())
-  {
-    screen->getDisplay()->println("Waiting...");
-    screen->update();
-    return;
-  }
-
-  if (squidbox->getOkButton()->isPressed())
-  {
-    toggleScale();
-  }
-
-  for (int i = 0; i < NUM_BUTTONS; i++)
-  {
-    Button *button = squidbox->getButton(i);
-    if (squidbox->getButton(i)->isPressed())
-    {
-      playChord(i, true);
-    }
-    else if (squidbox->getButton(i)->isReleased())
-    {
-      playChord(i, false);
-    }
-  }
-
-  screen->getDisplay()->printf("%s\n", toString(root));
-  screen->getDisplay()->printf("%s\n", scale->getName());
-  screen->update();
 }

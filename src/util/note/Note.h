@@ -119,4 +119,4 @@ Note getNextNote(Note note, bool wrap);
 Note getPreviousNote(Note note, bool wrap);
 Note getNextNote(Note note);
 Note getPreviousNote(Note note);
-const char *toString(Note note);
+const char *noteToString(Note note);

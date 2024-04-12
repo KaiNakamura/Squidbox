@@ -1,8 +1,7 @@
 #include "Button.h"
 
-Button::Button(int pin)
+Button::Button(int pin) : pin(pin)
 {
-  this->pin = pin;
   pinMode(pin, INPUT_PULLUP);
   wasDown = false;
   wasUp = true;
