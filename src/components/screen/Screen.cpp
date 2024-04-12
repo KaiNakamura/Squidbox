@@ -30,27 +30,30 @@ void Screen::printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKey
  
     for (int keyIndex = 0; keyIndex < numKeys; keyIndex++)
     {
-      if (keyIndex != 1 && keyIndex != 6 && keyIndex != 8 && keyIndex != 13 && keyIndex != 15 && keyIndex != 3 && keyIndex != 10)
+      int rootIndex = keyIndex % 12;
+      if (rootIndex != 1 && rootIndex != 6 && rootIndex != 8 && rootIndex != 13 && rootIndex != 15 && rootIndex != 3 && rootIndex != 10)
       {
         // Draw white key
         display.drawRect(whiteKeyPos, keyboardLocation, whiteKeyWidth, whiteKeyHeight, WHITE);
         whiteKeyPos = whiteKeyPos + whiteKeyWidth;
       }
     }
-    // Draw black keys filled black
+
+    // Draw black keys
     for (int keyIndex = 0; keyIndex < numKeys; keyIndex++)
     {
-      if (keyIndex == 1 || keyIndex == 6 || keyIndex == 8 || keyIndex == 13 || keyIndex == 15)
+      int rootIndex = keyIndex % 12;
+      if (rootIndex == 1 || rootIndex == 6 || rootIndex == 8 || rootIndex == 13 || rootIndex == 15)
       {
         display.fillRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, BLACK);
         display.drawRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, WHITE);
-        blackKeyPos = blackKeyPos + whiteKeyWidth + 1;
+        blackKeyPos = blackKeyPos + whiteKeyWidth;
       }
-      else if (keyIndex == 3 || keyIndex == 10)
+      else if (rootIndex == 3 || rootIndex == 10)
       {
-        display.fillRect(blackKeyPos, keyboardLocation, whiteKeyWidth, blackKeyHeight, BLACK);
-        display.drawRect(blackKeyPos, keyboardLocation, whiteKeyWidth, blackKeyHeight, WHITE);
-        blackKeyPos = blackKeyPos + 2*whiteKeyWidth + 2*1;
+        display.fillRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, BLACK);
+        display.drawRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, WHITE);
+        blackKeyPos = blackKeyPos + 2*whiteKeyWidth;
       }
     }
   }
