@@ -40,7 +40,7 @@ Note getPreviousNote(Note note)
   return getPreviousNote(note, false);
 }
 
-const char *toString(Note note)
+const char *noteToString(Note note)
 {
   static const char *noteNames[] = {
       "A0", "A#/Bb0", "B0",
