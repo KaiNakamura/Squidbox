@@ -1,6 +1,5 @@
 #pragma once 
 
-
 #include "scene/Scene.h"
 #include "util/note/Note.h"
 #include "util/ChordType.h"

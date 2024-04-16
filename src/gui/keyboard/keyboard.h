@@ -10,8 +10,9 @@ class Keyboard
 {
 private:
    Key* keys;
+   Squidbox* squidbox;
 
 public:
-   Keyboard();
+   Keyboard(Squidbox* squidbox);
    void printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKeyHeight, int blackKeyWidth, int blackKeyHeight, int numKeys);
 };
