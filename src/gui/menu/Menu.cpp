@@ -71,9 +71,10 @@ void Menu::update(Squidbox *squidbox)
 
   for (int i = 0; i < numMenuItems; i++)
   {
-    int prefix = i == selectedIndex ? ASCII_RIGHT_FAT_ARROW : ASCII_NULL;
+    MenuItem *menuItem = menuItems[i];
+    int prefix = i == selectedIndex ? menuItem->getPrefix() : ASCII_NULL;
     screen->getDisplay()->write(prefix);
-    screen->getDisplay()->printf("%s\n", menuItems[i]->getName());
+    screen->getDisplay()->printf("%s\n", menuItem->getName());
   }
 
   screen->update();
@@ -102,4 +103,26 @@ int Menu::getNextIndex()
 int Menu::getPreviousIndex()
 {
   return max(selectedIndex - 1, 0);
+}
+
+void Menu::onKnobLeft(int count, void *usr_data)
+{
+  Menu *self = static_cast<Menu *>(usr_data);
+
+  // Knob triggers twice per click, so we only want to trigger the event every other click
+  if (count % 2 == 0)
+  {
+    self->menuItems[self->selectedIndex]->onKnobLeft();
+  }
+}
+
+void Menu::onKnobRight(int count, void *usr_data)
+{
+  Menu *self = static_cast<Menu *>(usr_data);
+
+  // Knob triggers twice per click, so we only want to trigger the event every other click
+  if (count % 2 == 0)
+  {
+    self->menuItems[self->selectedIndex]->onKnobRight();
+  }
 }
