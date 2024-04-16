@@ -10,7 +10,6 @@ JoystickCalibratorScene::JoystickCalibratorScene(Squidbox *squidbox) : Scene(squ
 void JoystickCalibratorScene::init()
 {
   Scene::init();
-  Serial.println("JoystickCalibratorScene::init");
   xAverage = new MovingAverage(NUM_SAMPLES);
   yAverage = new MovingAverage(NUM_SAMPLES);
   xMin = 4096;

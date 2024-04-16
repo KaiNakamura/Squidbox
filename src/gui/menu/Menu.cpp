@@ -51,16 +51,20 @@ void Menu::update(Squidbox *squidbox)
     }
   }
 
-  // TODO: Handle knob inputs
-
   Screen *screen = squidbox->getScreen();
   screen->clear();
   screen->getDisplay()->setTextSize(1);
   screen->getDisplay()->setTextColor(WHITE);
   screen->getDisplay()->setCursor(0, 0);
 
-  // TODO: Add a header bar that shows battery, BLE connection, etc.
-  // For now just printing an empty line
+  // Print header bar
+  screen->getDisplay()->printf(squidbox->getDeviceId());
+  screen->getDisplay()->printf("  BLE:");
+  int connected = BLEMidiServer.isConnected() ? ASCII_UPPERCASE_Y : ASCII_UPPERCASE_N;
+  screen->getDisplay()->write(connected);
+  // TODO: Get actual battery level
+  screen->getDisplay()->printf("  100");
+  screen->getDisplay()->write(ASCII_PERCENT);
   screen->getDisplay()->printf("\n");
 
   if (hasParentScene())
@@ -71,9 +75,10 @@ void Menu::update(Squidbox *squidbox)
 
   for (int i = 0; i < numMenuItems; i++)
   {
-    int prefix = i == selectedIndex ? ASCII_RIGHT_FAT_ARROW : ASCII_NULL;
+    MenuItem *menuItem = menuItems[i];
+    int prefix = i == selectedIndex ? menuItem->getPrefix() : ASCII_NULL;
     screen->getDisplay()->write(prefix);
-    screen->getDisplay()->printf("%s\n", menuItems[i]->getName());
+    screen->getDisplay()->printf("%s\n", menuItem->getName());
   }
 
   screen->update();
@@ -102,4 +107,26 @@ int Menu::getNextIndex()
 int Menu::getPreviousIndex()
 {
   return max(selectedIndex - 1, 0);
+}
+
+void Menu::onKnobLeft(int count, void *usr_data)
+{
+  Menu *self = static_cast<Menu *>(usr_data);
+
+  // Knob triggers twice per click, so we only want to trigger the event every other click
+  if (count % 2 == 0)
+  {
+    self->menuItems[self->selectedIndex]->onKnobLeft();
+  }
+}
+
+void Menu::onKnobRight(int count, void *usr_data)
+{
+  Menu *self = static_cast<Menu *>(usr_data);
+
+  // Knob triggers twice per click, so we only want to trigger the event every other click
+  if (count % 2 == 0)
+  {
+    self->menuItems[self->selectedIndex]->onKnobRight();
+  }
 }

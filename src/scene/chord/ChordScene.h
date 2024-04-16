@@ -4,13 +4,12 @@
 #include "util/note/Note.h"
 #include "util/ChordType.h"
 #include "util/scale/Scale.h"
-#include "gui/menu-item/MenuItem.h"
+#include "gui/menu-item/root-note/RootNoteMenuItem.h"
+#include "gui/menu-item/scale/ScaleMenuItem.h"
 
 class ChordScene : public Scene
 {
 private:
-  Note root;
-  Scale *scale;
   ChordType chordType;
   const int STARTING_KEY_Y = 40;
   const int WHITE_KEY_WIDTH = 8; 
@@ -20,11 +19,10 @@ private:
   MenuItem *connectedMenuItem;
   MenuItem *rootMenuItem;
   MenuItem *scaleMenuItem;
+  RootNoteMenuItem *rootMenuItem;
+  ScaleMenuItem *scaleMenuItem;
   static const Note MIN_NOTE = NOTE_C1;
   static const Note MAX_NOTE = NOTE_C7;
-  static void onKnobLeft(int count, void *usr_data);
-  static void onKnobRight(int count, void *usr_data);
-  void toggleScale();
 
 public:
   ChordScene(Squidbox *squidbox);

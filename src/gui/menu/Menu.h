@@ -24,4 +24,6 @@ public:
   bool hasMenuItems();
   bool hasParentScene();
   void setName(const char *name);
+  static void onKnobLeft(int count, void *usr_data);
+  static void onKnobRight(int count, void *usr_data);
 };
