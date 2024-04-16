@@ -1,8 +1,8 @@
 #include "MenuItem.h"
 
-MenuItem::MenuItem(const char *name, Scene *scene) : name(name), scene(scene), callback(nullptr) {}
+MenuItem::MenuItem(const char *name) : name(name), selectCallback(nullptr), knobLeftCallback(nullptr), knobRightCallback(nullptr) {}
 
-MenuItem::MenuItem(Scene *scene) : MenuItem("", scene) {}
+MenuItem::MenuItem() : MenuItem("") {}
 
 const char *MenuItem::getName()
 {
@@ -14,15 +14,53 @@ void MenuItem::setName(const char *name)
   this->name = name;
 }
 
-void MenuItem::setCallback(CallbackFunction cb)
+void MenuItem::setOnSelectCallback(CallbackFunction cb, void *arg)
 {
-  callback = cb;
+  selectCallback = cb;
+  selectArg = arg;
+}
+
+void MenuItem::setOnKnobLeftCallback(CallbackFunction cb, void *arg)
+{
+  knobLeftCallback = cb;
+  knobLeftArg = arg;
+}
+
+void MenuItem::setOnKnobRightCallback(CallbackFunction cb, void *arg)
+{
+  knobRightCallback = cb;
+  knobRightArg = arg;
 }
 
 void MenuItem::onSelect()
 {
-  if (callback)
+  if (selectCallback)
   {
-    callback(scene);
+    selectCallback(selectArg);
   }
+}
+
+void MenuItem::onKnobLeft()
+{
+  if (knobLeftCallback)
+  {
+    knobLeftCallback(knobLeftArg);
+  }
+}
+
+void MenuItem::onKnobRight()
+{
+  if (knobRightCallback)
+  {
+    knobRightCallback(knobRightArg);
+  }
+}
+
+Ascii MenuItem::getPrefix()
+{
+  if (knobLeftCallback || knobRightCallback)
+  {
+    return ASCII_DOUBLE_VERTICAL_ARROW;
+  }
+  return ASCII_RIGHT_FAT_ARROW;
 }

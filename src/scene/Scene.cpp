@@ -1,6 +1,5 @@
 #include "Scene.h"
-#include "gui/menu/Menu.h"
-#include <Arduino.h>
+#include "Squidbox.h"
 
 Scene::Scene(Squidbox *squidbox, Menu *menu) : squidbox(squidbox), menu(menu) {}
 
@@ -11,6 +10,13 @@ Squidbox *Scene::getSquidbox()
 
 void Scene::init()
 {
+  Knob *knob = squidbox->getKnob();
+  knob->detachLeftEventCallback();
+  knob->detachRightEventCallback();
+  knob->setEventUserData(menu);
+  knob->attachLeftEventCallback(menu->onKnobLeft);
+  knob->attachRightEventCallback(menu->onKnobRight);
+  
 }
 
 void Scene::update()
