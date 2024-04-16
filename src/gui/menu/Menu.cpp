@@ -51,16 +51,20 @@ void Menu::update(Squidbox *squidbox)
     }
   }
 
-  // TODO: Handle knob inputs
-
   Screen *screen = squidbox->getScreen();
   screen->clear();
   screen->getDisplay()->setTextSize(1);
   screen->getDisplay()->setTextColor(WHITE);
   screen->getDisplay()->setCursor(0, 0);
 
-  // TODO: Add a header bar that shows battery, BLE connection, etc.
-  // For now just printing an empty line
+  // Print header bar
+  screen->getDisplay()->printf(squidbox->getDeviceId());
+  screen->getDisplay()->printf("  BLE:");
+  int connected = BLEMidiServer.isConnected() ? ASCII_UPPERCASE_Y : ASCII_UPPERCASE_N;
+  screen->getDisplay()->write(connected);
+  // TODO: Get actual battery level
+  screen->getDisplay()->printf("  100");
+  screen->getDisplay()->write(ASCII_PERCENT);
   screen->getDisplay()->printf("\n");
 
   if (hasParentScene())
