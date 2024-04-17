@@ -1,26 +1,23 @@
 #pragma once
 
-const int NUM_SCENES = 6;
+#include "SceneType.h"
 
-enum SceneType
-{
-  MAIN_SCENE,
-  CHORD_SCENE,
-  SCREEN_SCENE,
-  JOYSTICK_CALIBRATOR_SCENE,
-  KNOB_SCENE,
-  BUTTON_SCENE,
-};
+const int NUM_SCENES = 5;
 
 class Squidbox;
+
+class Menu;
 
 class Scene
 {
 protected:
   SceneType type;
   Squidbox *squidbox;
+  Menu *menu;
 
 public:
+  Scene(Squidbox *squidbox, Menu *menu);
+  Squidbox *getSquidbox();
   virtual void init();
   virtual void update();
 };

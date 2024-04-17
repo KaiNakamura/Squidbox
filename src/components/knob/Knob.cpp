@@ -1,8 +1,7 @@
 #include "Knob.h"
 
-Knob::Knob(int aPin, int bPin, int buttonPin)
+Knob::Knob(int aPin, int bPin, int buttonPin) : buttonPin(buttonPin)
 {
-  this->buttonPin = buttonPin;
   pinMode(buttonPin, INPUT_PULLUP);
   knob = new ESP_Knob(aPin, bPin);
   knob->begin();

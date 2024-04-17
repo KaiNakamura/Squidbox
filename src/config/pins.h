@@ -1,12 +1,10 @@
 #pragma once
 
-#define PIN_SCREEN_SCL -1
-#define PIN_SCREEN_SDA -1
-#define PIN_JOYSTICK_X -1
-#define PIN_JOYSTICK_Y -1
+#define PIN_JOYSTICK_X 25
+#define PIN_JOYSTICK_Y 34
 #define PIN_JOYSTICK_BUTTON -1
-#define PIN_KNOB_A -1
-#define PIN_KNOB_B -1
+#define PIN_KNOB_A 4
+#define PIN_KNOB_B 5
 #define PIN_KNOB_BUTTON -1
 #define PIN_BACK_BUTTON -1
 #define PIN_OK_BUTTON -1

@@ -1,0 +1,11 @@
+#pragma once
+
+enum SceneType
+{
+  MAIN_SCENE,
+  CHORD_SCENE,
+  JOYSTICK_CALIBRATOR_SCENE,
+  KNOB_SCENE,
+  BUTTON_SCENE,
+  NULL_SCENE
+};

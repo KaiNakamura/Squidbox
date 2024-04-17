@@ -11,13 +11,19 @@ private:
   int *semitones;
 
 public:
-  Scale(char *name, int numNotes, int *semitones);
+  static Scale *MAJOR;
+  static Scale *MINOR;
+  static Scale *DORIAN;
+  static Scale *PHRYGIAN;
+  static Scale *LYDIAN;
+  static Scale *MIXOLYDIAN;
+  static Scale *LOCRIAN;
+  static Scale *HARMONIC_MINOR;
+  static Scale *HARMONIC_MAJOR;
+  static const int NUM_SCALES = 9;
+  static Scale *SCALES[];
+  Scale(const char *name, int numNotes, int *semitones);
   const char *getName();
   int getNote(int root, int index);
   int *getNotesFromChord(int root, int index, ChordType chord);
 };
-
-extern Scale *MAJOR_SCALE;
-extern Scale *MINOR_SCALE;
-extern Scale *MAJOR_PENTATONIC_SCALE;
-extern Scale *MINOR_PENTATONIC_SCALE;
