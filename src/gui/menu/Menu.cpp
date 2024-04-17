@@ -52,7 +52,7 @@ void Menu::update(Squidbox *squidbox)
   }
 
   Screen *screen = squidbox->getScreen();
-  screen->clear();
+  //screen->clear();
   screen->getDisplay()->setTextSize(1);
   screen->getDisplay()->setTextColor(WHITE);
   screen->getDisplay()->setCursor(0, 0);
