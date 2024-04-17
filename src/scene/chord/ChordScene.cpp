@@ -50,11 +50,11 @@ void ChordScene::playChord(int index, bool on)
   {
     if (on)
     {
-      BLEMidiServer.noteOn(0, notes[i], 127);
+      MIDIServer::noteOn(0, notes[i], 127);
     }
     else
     {
-      BLEMidiServer.noteOff(0, notes[i], 127);
+      MIDIServer::noteOff(0, notes[i], 127);
     }
   }
 }

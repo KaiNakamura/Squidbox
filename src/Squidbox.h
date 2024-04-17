@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Arduino.h>
-#include <BLEMidi.h>
 #include <esp_efuse.h>
 #include "scene/Scene.h"
 #include "scene/main/MainScene.h"
@@ -15,6 +14,7 @@
 #include "components/joystick/Joystick.h"
 #include "components/knob/Knob.h"
 #include "components/button/Button.h"
+#include "util/midi/MIDIServer.h"
 
 const int NUM_BUTTONS = 8;
 

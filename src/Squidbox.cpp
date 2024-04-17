@@ -2,8 +2,7 @@
 
 Squidbox::Squidbox()
 {
-  BLEMidiServer.begin(getName());
-  BLEMidiServer.enableDebugging();
+  MIDIServer::begin(getName());
   screen = new Screen();
   joystick = new Joystick(PIN_JOYSTICK_X, PIN_JOYSTICK_Y, PIN_JOYSTICK_BUTTON);
   knob = new Knob(PIN_KNOB_A, PIN_KNOB_B, PIN_KNOB_BUTTON);
