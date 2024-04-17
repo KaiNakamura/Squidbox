@@ -1,10 +1,9 @@
 #pragma once
 
-#include "scene/Scene.h"
 #include "components/knob/Knob.h"
+#include "scene/Scene.h"
 
-class KnobScene : public Scene
-{
+class KnobScene : public Scene {
 private:
   static void leftCallback(int count, void *usr_data);
   static void rightCallback(int count, void *usr_data);

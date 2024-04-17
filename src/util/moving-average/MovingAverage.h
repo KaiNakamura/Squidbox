@@ -1,7 +1,6 @@
 #pragma once
 
-class MovingAverage
-{
+class MovingAverage {
 private:
   int *window;
   int size;

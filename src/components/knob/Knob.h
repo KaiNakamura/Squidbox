@@ -3,8 +3,7 @@
 #include <Arduino.h>
 #include <ESP_Knob.h>
 
-class Knob
-{
+class Knob {
 private:
   int buttonPin;
   ESP_Knob *knob;

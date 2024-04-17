@@ -1,12 +1,11 @@
 #pragma once
 
-#include <SPI.h>
-#include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <SPI.h>
+#include <Wire.h>
 
-class Screen
-{
+class Screen {
 private:
   const int WIDTH = 128;
   const int HEIGHT = 64;

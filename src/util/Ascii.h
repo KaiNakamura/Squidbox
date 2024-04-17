@@ -1,7 +1,6 @@
 #pragma once
 
-enum Ascii
-{
+enum Ascii {
   ASCII_NULL = 0,
   ASCII_EMPTY_SMILEY = 1,
   ASCII_SMILEY = 2,
