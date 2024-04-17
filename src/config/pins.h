@@ -3,8 +3,8 @@
 #define PIN_JOYSTICK_X 25
 #define PIN_JOYSTICK_Y 34
 #define PIN_JOYSTICK_BUTTON -1
-#define PIN_KNOB_A 4
-#define PIN_KNOB_B 5
+#define PIN_KNOB_A 5
+#define PIN_KNOB_B 4
 #define PIN_KNOB_BUTTON -1
 #define PIN_BACK_BUTTON 13
 #define PIN_OK_BUTTON 26
