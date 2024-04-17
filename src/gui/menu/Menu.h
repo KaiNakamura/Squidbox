@@ -1,12 +1,11 @@
 #pragma once
 
-#include "scene/SceneType.h"
 #include "gui/menu-item/MenuItem.h"
+#include "scene/SceneType.h"
 
 class Squidbox;
 
-class Menu
-{
+class Menu {
 private:
   const char *name;
   int numMenuItems;
@@ -17,7 +16,8 @@ private:
   int getPreviousIndex();
 
 public:
-  Menu(const char *name, int numMenuItems, MenuItem **menuItems, SceneType parentScene);
+  Menu(const char *name, int numMenuItems, MenuItem **menuItems,
+       SceneType parentScene);
   Menu(const char *name, int numMenuItems, MenuItem **menuItems);
   Menu(const char *name, SceneType parentScene);
   void update(Squidbox *squidbox);

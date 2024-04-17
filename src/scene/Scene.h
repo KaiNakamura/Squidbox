@@ -8,8 +8,7 @@ class Squidbox;
 
 class Menu;
 
-class Scene
-{
+class Scene {
 protected:
   SceneType type;
   Squidbox *squidbox;

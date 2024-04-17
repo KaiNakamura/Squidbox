@@ -3,8 +3,7 @@
 #include "scene/Scene.h"
 #include "util/moving-average/MovingAverage.h"
 
-class JoystickCalibratorScene : public Scene
-{
+class JoystickCalibratorScene : public Scene {
 private:
   const int NUM_SAMPLES = 200;
   MovingAverage *xAverage, *yAverage;

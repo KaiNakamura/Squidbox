@@ -3,8 +3,7 @@
 #include "gui/menu-item/MenuItem.h"
 #include "util/note/Note.h"
 
-class RootNoteMenuItem : public MenuItem
-{
+class RootNoteMenuItem : public MenuItem {
 private:
   static const Note MIN_NOTE = NOTE_C1;
   static const Note MAX_NOTE = NOTE_C7;

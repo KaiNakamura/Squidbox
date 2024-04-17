@@ -2,8 +2,7 @@
 
 #include <Arduino.h>
 
-class Button
-{
+class Button {
 private:
   int pin;
   bool wasDown;

@@ -1,7 +1,6 @@
 #pragma once
 
-enum SceneType
-{
+enum SceneType {
   MAIN_SCENE,
   CHORD_SCENE,
   JOYSTICK_CALIBRATOR_SCENE,

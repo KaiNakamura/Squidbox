@@ -1,10 +1,9 @@
-#include <Arduino.h>
 #include "Squidbox.h"
+#include <Arduino.h>
 
 Squidbox *squidbox;
 
-void setup()
-{
+void setup() {
   // Enables Serial Communication with baudRate of 115200
   Serial.begin(115200);
 
@@ -12,7 +11,4 @@ void setup()
   squidbox->init();
 }
 
-void loop()
-{
-  squidbox->update();
-}
+void loop() { squidbox->update(); }
