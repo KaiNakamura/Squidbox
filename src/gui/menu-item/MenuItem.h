@@ -1,12 +1,11 @@
 #pragma once
 
-#include <functional>
 #include "util/Ascii.h"
+#include <functional>
 
 class Scene;
 
-class MenuItem
-{
+class MenuItem {
 public:
   using CallbackFunction = std::function<void(void *)>;
 

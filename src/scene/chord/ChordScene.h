@@ -1,14 +1,13 @@
 #pragma once
 
-#include "scene/Scene.h"
-#include "util/note/Note.h"
-#include "util/ChordType.h"
-#include "util/scale/Scale.h"
 #include "gui/menu-item/root-note/RootNoteMenuItem.h"
 #include "gui/menu-item/scale/ScaleMenuItem.h"
+#include "scene/Scene.h"
+#include "util/ChordType.h"
+#include "util/note/Note.h"
+#include "util/scale/Scale.h"
 
-class ChordScene : public Scene
-{
+class ChordScene : public Scene {
 private:
   ChordType chordType;
   RootNoteMenuItem *rootMenuItem;

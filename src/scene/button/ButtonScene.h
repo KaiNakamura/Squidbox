@@ -2,8 +2,7 @@
 
 #include "scene/Scene.h"
 
-class ButtonScene : public Scene
-{
+class ButtonScene : public Scene {
 public:
   ButtonScene(Squidbox *squidbox);
   void init() override;
