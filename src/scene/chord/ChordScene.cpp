@@ -39,7 +39,7 @@ void ChordScene::update()
     }
   }
   Keyboard keyboard = Keyboard(squidbox);
-  keyboard.printKeyboard(50, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, 24);
+  keyboard.printKeyboard(40, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, 20, NOTE_C6);
 }
 
 void ChordScene::playChord(int index, bool on)

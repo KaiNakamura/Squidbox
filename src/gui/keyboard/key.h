@@ -13,6 +13,7 @@ class Key {
       int x, y; 
    
    public: 
+      Key();
       Key(bool isWhite, Note note, int x, int y);
       void draw(Note note);
 };

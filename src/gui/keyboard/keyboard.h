@@ -20,5 +20,6 @@ private:
 
 public:
    Keyboard(Squidbox* squidbox);
-   void printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKeyHeight, int blackKeyWidth, int blackKeyHeight, int numKeys);
+   void setKeys(Key* keys);
+   void printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKeyHeight, int blackKeyWidth, int blackKeyHeight, int numKeys, Note rootNote);
 };

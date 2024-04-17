@@ -1,5 +1,29 @@
 #include "Note.h"
 
+bool checkNoteColorWhite(Note note) {
+    int rootIndex = note % 12;
+    if (rootIndex != 1 && rootIndex != 6 && rootIndex != 8 && rootIndex != 3 && rootIndex != 10) {
+        return true;
+    }
+}
+
+// Black keys next to each other (consecutive black keys)
+bool checkNoteColorConsecutiveBlack(Note note) {
+    int rootIndex = note % 12;
+      if (rootIndex == 1 || rootIndex == 6 || rootIndex == 8) {
+        return true;
+      }
+}
+
+// Black keys with gap inbetween next set (not consecutive black keys)
+bool checkNoteColorGapBlack(Note note) {
+    int rootIndex = note % 12;
+      if (rootIndex == 3 || rootIndex == 10) {
+        return true;
+      }
+}
+
+
 Note getNextNote(Note note, Note minNote, Note maxNote, bool wrap)
 {
   return (note == maxNote) ? (wrap ? minNote : maxNote) : static_cast<Note>((note % maxNote) + 1);
