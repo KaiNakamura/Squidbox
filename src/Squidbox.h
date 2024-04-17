@@ -22,8 +22,7 @@ class Squidbox
 {
 private:
   Scene *scenes[NUM_SCENES];
-  // int currentScene = MAIN_SCENE;
-  int currentScene = KNOB_SCENE;
+  int currentScene = MAIN_SCENE;
   Screen *screen;
   Joystick *joystick;
   Knob *knob;
