@@ -6,12 +6,31 @@ Keyboard::Keyboard(Squidbox *squidbox)
   this->squidbox = squidbox;
 }
 
-void Keyboard::setKeys(Key* keys)
+
+void Keyboard::drawKey(Note note, Key keys[], int numKeys)
 {
-  this->keys = keys;
+  Screen *screen = squidbox->getScreen();
+  Adafruit_SSD1306* display = screen->getDisplay();
+  for (int i = 0; i < numKeys; i++)
+  {
+    Serial.println(keys[i].getNote()); 
+    if (keys[i].getNote() == note)
+    {
+      if (keys[i].getIsWhite())
+      {
+        //display->fillRect(keys[i].getX(), keys[i].getY(), WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT, WHITE);
+      }
+      else
+      {
+        display->fillRect(keys[i].getX(), keys[i].getY(), BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT, WHITE);
+      }
+    }
+  }
+  
 }
 
-void Keyboard::printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKeyHeight, int blackKeyWidth, int blackKeyHeight, int numKeys, Note rootNote)
+
+void Keyboard::printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKeyHeight, int blackKeyWidth, int blackKeyHeight, int numKeys, Note rootNote, Note chordNotes[])
 {
     int whiteKeyPos = 2; // Initial position of the first white key
     int blackKeyPos = 8; // Initial position of the first black key
@@ -19,7 +38,7 @@ void Keyboard::printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteK
     Adafruit_SSD1306* display = screen->getDisplay();
     Key keys[numKeys];
 
-  // Create an array that keeps teh starting position of each key indexed by the key index and then fill in the keys after the piano is printed
+  // Create an array that keeps the starting position of each key indexed by the key index and then fill in the keys after the piano is printed
    
     for (int keyIndex = 0; keyIndex < numKeys; keyIndex++)
     {
@@ -29,13 +48,18 @@ void Keyboard::printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteK
         currNote = getNextNote(currNote);
       }
 
-      int rootIndex = keyIndex % 12;
-      if (checkNoteColorWhite(currNote))
+       // Draw white keys
+      int rootIndex = currNote % 12;
+      if (rootIndex != 1 && rootIndex != 6 && rootIndex != 8 && rootIndex != 3 && rootIndex != 10) 
       {
-        // Draw white key
-        display->drawRect(whiteKeyPos, keyboardLocation, whiteKeyWidth, whiteKeyHeight, WHITE);
-        whiteKeyPos = whiteKeyPos + whiteKeyWidth;
+        if (currNote == chordNotes[0] || currNote == chordNotes[1] || currNote == chordNotes[2]) {
+          display->fillRect(whiteKeyPos, keyboardLocation, whiteKeyWidth, whiteKeyHeight, WHITE);
+        }
+        else {
+          display->drawRect(whiteKeyPos, keyboardLocation, whiteKeyWidth, whiteKeyHeight, WHITE);
+        }
         keys[keyIndex] = Key(true, currNote, whiteKeyPos, keyboardLocation);
+        whiteKeyPos = whiteKeyPos + whiteKeyWidth + 1;
       }
     }
 
@@ -43,24 +67,30 @@ void Keyboard::printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteK
     for (int keyIndex = 0; keyIndex < numKeys; keyIndex++)
     {
       Note currNote = rootNote;
-      // for loop needs to be removed
-      for (int i = 0; i < keyIndex; i++) {
+      for (int i = 0; i <= keyIndex; i++) {
         currNote = getNextNote(currNote);
       }
 
-      int rootIndex = keyIndex % 12;
-      if (checkNoteColorConsecutiveBlack(currNote))
+      int rootIndex = currNote % 12;
+      if (rootIndex == 1 || rootIndex == 6 || rootIndex == 8)
       {
         display->fillRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, BLACK);
         display->drawRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, WHITE);
-        blackKeyPos = blackKeyPos + whiteKeyWidth;
+        keys[keyIndex] = Key(false, currNote, blackKeyPos, keyboardLocation);
+        blackKeyPos = blackKeyPos + whiteKeyWidth + 1;
       }
-      else if (checkNoteColorGapBlack(currNote))
+      else if (rootIndex == 3 || rootIndex == 10)
       {
         display->fillRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, BLACK);
         display->drawRect(blackKeyPos, keyboardLocation, blackKeyWidth, blackKeyHeight, WHITE);
-        blackKeyPos = blackKeyPos + 2*whiteKeyWidth;
+        keys[keyIndex] = Key(false, currNote, blackKeyPos, keyboardLocation);
+        blackKeyPos = blackKeyPos + 2*whiteKeyWidth + 2;
       }
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+      drawKey(chordNotes[i], keys, numKeys);
     }
 
     screen->update();

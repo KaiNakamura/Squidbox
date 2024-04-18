@@ -13,6 +13,16 @@ class Key {
       int x, y; 
    
    public: 
+      bool getIsDown();
+      void setIsDown(bool isDown);
+      bool getIsWhite();
+      void setIsWhite(bool isWhite);
+      Note getNote();
+      void setNote(Note note);
+      int getX();
+      void setX(int x);
+      int getY();
+      void setY(int y);
       Key();
       Key(bool isWhite, Note note, int x, int y);
       void draw(Note note);
