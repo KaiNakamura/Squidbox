@@ -1,35 +1,31 @@
 #include "key.h"
 
 Key::Key() {
-    this->isDown = false;
-    this->isWhite = false;
-    this->note = NOTE_C6;
-    this->x = 0;
-    this->y = 0;
-
+    this->down = false;
+    this->white = false;
+    this->note = NOTE_A0;
 }
-Key::Key(bool isWhite, Note note, int x, int y) {
-    this->isDown = false;
-    this->isWhite = isWhite;
+
+Key::Key(bool down, bool white, Note note) {
+    this->down = false;
+    this->white = white;
     this->note = note;
-    this->x = x;
-    this->y = y;
 }
 
-bool Key::getIsDown() {
-    return this->isDown;
+bool Key::isDown() {
+    return this->down;
 }
 
-void Key::setIsDown(bool isDown) {
-    this->isDown = isDown;
+void Key::setDown(bool down) {
+    this->down = down;
 }
 
-bool Key::getIsWhite() {
-    return this->isWhite;
+bool Key::isWhite() {
+    return this->white;
 }
 
-void Key::setIsWhite(bool isWhite) {
-    this->isWhite = isWhite;
+void Key::setWhite(bool white) {
+    this->white = white;
 }
 
 Note Key::getNote() {
@@ -39,20 +35,3 @@ Note Key::getNote() {
 void Key::setNote(Note note) {
     this->note = note;
 }
-
-int Key::getX() {
-    return this->x;
-}
-
-void Key::setX(int x) {
-    this->x = x;
-}
-
-int Key::getY() {
-    return this->y;
-}
-
-void Key::setY(int y) {
-    this->y = y;
-}
-

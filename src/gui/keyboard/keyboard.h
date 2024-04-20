@@ -15,11 +15,17 @@ const int BLACK_KEY_HEIGHT = 12;
 class Keyboard
 {
 private:
-   Key* keys;
+   Key** keys;
    Squidbox* squidbox;
-
+   void drawKey(Key* key, int x, int y);
+   void drawWhiteKey(Note root, int whiteKeyPosition, int numKeys);
+   void drawBlackKey(Note root, int blackKeyPosition, int numKeys);
+   void setWhiteKeys(); 
+   void setBlackKeys();
+   
 public:
-   void drawKey(Note note, Key keys[], int numKeys);
    Keyboard(Squidbox* squidbox);
-   void printKeyboard(int keyboardLocation, int whiteKeyWidth, int whiteKeyHeight, int blackKeyWidth, int blackKeyHeight, int numKeys, Note rootNote, Note chordNotes[]);
+   void printKeyboard(Note root, int numKeys);
+   void setKeyDown(Note note, bool down);
 };
+
