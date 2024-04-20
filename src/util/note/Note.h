@@ -109,10 +109,7 @@ enum Note {
   NOTE_FSHARP9 = 126,
   NOTE_G9 = 127
 };
-const int NUM_NOTES = 106;
-bool checkNoteColorConsecutiveBlack(Note note);
-bool checkNoteColorGapBlack(Note note);
-bool checkNoteColorWhite(Note note);
+
 Note getNextNote(Note note, Note minNote, Note maxNote, bool wrap);
 Note getPreviousNote(Note note, Note minNote, Note maxNote, bool wrap);
 Note getNextNote(Note note, Note minNote, Note maxNote);

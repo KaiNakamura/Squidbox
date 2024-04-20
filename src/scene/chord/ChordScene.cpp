@@ -29,9 +29,12 @@ void ChordScene::update() {
       playChord(i, false);
     }
   }
-  Keyboard keyboard = Keyboard(squidbox);
-  keyboard.setKeyDown(NOTE_C6, true);
-  keyboard.printKeyboard(NOTE_C6, 20);
+  // Test code for keyboard
+  // Keyboard keyboard = Keyboard(squidbox);
+  // keyboard.setKeyDown(NOTE_C6, true);
+  // keyboard.setKeyDown(NOTE_GSHARP6, true);
+  // keyboard.setKeyDown(NOTE_FSHARP7, true);
+  // keyboard.printKeyboard(NOTE_C6, 20);
 }
 
 void ChordScene::playChord(int index, bool on) {
