@@ -1,7 +1,6 @@
 #pragma once
 
-enum Note
-{
+enum Note {
   NOTE_A0 = 21,
   NOTE_ASHARP0 = 22,
   NOTE_B0 = 23,

@@ -1,10 +1,9 @@
 #pragma once
 
-#include <Arduino.h>
 #include "util/ChordType.h"
+#include <Arduino.h>
 
-class Scale
-{
+class Scale {
 private:
   const char *name;
   int numNotes;

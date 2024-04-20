@@ -2,8 +2,7 @@
 
 #include <Arduino.h>
 
-enum Direction
-{
+enum Direction {
   NONE,
   UP,
   RIGHT,
@@ -13,8 +12,7 @@ enum Direction
 
 const char *directionToString(Direction direction);
 
-class Joystick
-{
+class Joystick {
 private:
   const float JOYSTICK_DEADZONE = 0.5;
   const int X_CENTER = 1848;
@@ -27,7 +25,8 @@ private:
   int yPin;
   int buttonPin;
   bool wasLeft, wasRight, wasUp, wasDown;
-  static float map(float x, float inMin, float inMax, float outMin, float outMax);
+  static float map(float x, float inMin, float inMax, float outMin,
+                   float outMax);
   static float convertRawValue(int raw, int center, int min, int max);
 
 public:
