@@ -1,7 +1,10 @@
 #include "Squidbox.h"
 
 Squidbox::Squidbox() {
+  // Initialize MIDI server
   MIDIServer::begin(getName());
+
+  // Initialize components
   screen = new Screen();
   joystick = new Joystick(PIN_JOYSTICK_X, PIN_JOYSTICK_Y, PIN_JOYSTICK_BUTTON);
   knob = new Knob(PIN_KNOB_A, PIN_KNOB_B, PIN_KNOB_BUTTON);
@@ -18,20 +21,30 @@ Squidbox::Squidbox() {
 }
 
 void Squidbox::init() {
+  // Initialize scenes
   scenes[MAIN_SCENE] = new MainScene(this);
   scenes[CHORD_SCENE] = new ChordScene(this);
   scenes[JOYSTICK_CALIBRATOR_SCENE] = new JoystickCalibratorScene(this);
   scenes[KNOB_SCENE] = new KnobScene(this);
   scenes[BUTTON_SCENE] = new ButtonScene(this);
-  scenes[currentScene]->init();
 }
 
-void Squidbox::update() { scenes[currentScene]->update(); }
+void Squidbox::update() {
+  // If current scene has not been initialized, initialize it
+  if (!currentSceneInitialized) {
+    scenes[currentScene]->init();
+    currentSceneInitialized = true;
+  }
+
+  // Update current scene
+  scenes[currentScene]->update();
+}
 
 void Squidbox::switchTo(SceneType scene) {
+  // If the scene has changed, set the new scene and mark it as not initialized
   if (scene != currentScene) {
     currentScene = scene;
-    scenes[currentScene]->init();
+    currentSceneInitialized = false;
   }
 }
 
@@ -48,6 +61,7 @@ Button *Squidbox::getOkButton() { return okButton; }
 Button **Squidbox::getButtons() { return buttons; }
 
 Button *Squidbox::getButton(int index) {
+  // Check if the index is out of bounds
   if (index < 0 || index > NUM_BUTTONS - 1) {
     Serial.printf("Error: Button not found with index %d\n", index);
   }
@@ -55,6 +69,7 @@ Button *Squidbox::getButton(int index) {
 }
 
 const char *Squidbox::getDeviceId() {
+  // Length of device ID is 17 characters (e.g. "00:00:00:00:00:00")
   static char deviceId[18];
   uint8_t baseMac[6];
   esp_efuse_mac_get_default(baseMac);

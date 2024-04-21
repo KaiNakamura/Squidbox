@@ -27,6 +27,7 @@ private:
   Button *backButton;
   Button *okButton;
   Button *buttons[NUM_BUTTONS];
+  bool currentSceneInitialized = false;
 
 public:
   Squidbox();
