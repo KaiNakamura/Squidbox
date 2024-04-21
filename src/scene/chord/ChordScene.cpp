@@ -13,6 +13,8 @@ ChordScene::ChordScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
   menuItems[1] = scaleMenuItem;
 
   menu = new Menu("Chords", 2, menuItems, MAIN_SCENE);
+
+  keyboard = new Keyboard(squidbox);
 }
 
 void ChordScene::init() { Scene::init(); }
@@ -29,12 +31,9 @@ void ChordScene::update() {
       playChord(i, false);
     }
   }
-  // Test code for keyboard
-  // Keyboard keyboard = Keyboard(squidbox);
-  // keyboard.setKeyDown(NOTE_C6, true);
-  // keyboard.setKeyDown(NOTE_GSHARP6, true);
-  // keyboard.setKeyDown(NOTE_FSHARP7, true);
-  // keyboard.printKeyboard(NOTE_C6, 20);
+
+  // Update keyboard
+  keyboard->update(rootMenuItem->getRootNote());
 }
 
 void ChordScene::playChord(int index, bool on) {
@@ -43,6 +42,7 @@ void ChordScene::playChord(int index, bool on) {
   Note root = rootMenuItem->getRootNote();
   int *notes = scale->getNotesFromChord(root, index, chordType);
   for (int i = 0; i < chordType.numNotes; i++) {
+    keyboard->setKeyDown(notes[i], on);
     if (on) {
       MIDIServer::noteOn(0, notes[i], 127);
     } else {

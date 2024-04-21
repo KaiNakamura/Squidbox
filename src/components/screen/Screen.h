@@ -7,12 +7,12 @@
 
 class Screen {
 private:
-  const int WIDTH = 128; // OLED display width, in pixels
-  const int HEIGHT = 64; // OLED display height, in pixels
-  const int SCREEN_ADDRESS = 0x3C;
+  const static int SCREEN_ADDRESS = 0x3C;
   Adafruit_SSD1306 display;
 
 public:
+  const static int WIDTH = 128; // OLED display width, in pixels
+  const static int HEIGHT = 64; // OLED display height, in pixels
   Screen();
   void clear();
   void update();

@@ -20,7 +20,7 @@ public:
        SceneType parentScene);
   Menu(const char *name, int numMenuItems, MenuItem **menuItems);
   Menu(const char *name, SceneType parentScene);
-  void update(Squidbox *squidbox);
+  void drawMenu(Squidbox *squidbox);
   bool hasMenuItems();
   bool hasParentScene();
   void setName(const char *name);

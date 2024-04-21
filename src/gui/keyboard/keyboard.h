@@ -1,31 +1,33 @@
 #pragma once
-#include "scene/Scene.h"
-#include "gui/Keyboard/Key.h"
 #include "components/screen/Screen.h"
-#include "util/note/Note.h"
+#include "gui/keyboard/Key.h"
+#include "scene/Scene.h"
 #include "util/ChordType.h"
+#include "util/note/Note.h"
 #include "util/scale/Scale.h"
+#include <Arduino.h>
 
-const int STARTING_KEY_Y = 40;
-const int WHITE_KEY_WIDTH = 8; 
-const int WHITE_KEY_HEIGHT = 20;
-const int BLACK_KEY_WIDTH = 5; 
-const int BLACK_KEY_HEIGHT = 12; 
-
-class Keyboard
-{
+class Keyboard {
 private:
-   Key** keys;
-   Squidbox* squidbox;
-   void drawKey(Key* key, int x, int y);
-   void drawWhiteKey(Note root, int whiteKeyPosition, int numKeys);
-   void drawBlackKey(Note root, int blackKeyPosition, int numKeys);
-   void setWhiteKeys(); 
-   void setBlackKeys();
-   
-public:
-   Keyboard(Squidbox* squidbox);
-   void printKeyboard(Note root, int numKeys);
-   void setKeyDown(Note note, bool down);
-};
+  const static int STARTING_KEY_Y = 40;
+  const static int WHITE_KEY_WIDTH = 8;
+  const static int WHITE_KEY_HEIGHT = 20;
+  const static int BLACK_KEY_WIDTH = 5;
+  const static int BLACK_KEY_HEIGHT = 12;
+  const static int NUM_KEYS_TO_DRAW = 24;
+  const static int REFRESH_RATE = 20; // Hz
+  Key **keys;
+  Squidbox *squidbox;
+  unsigned long lastUpdate;
+  void setWhiteKeys();
+  void setBlackKeys();
+  void drawWhiteKey(Note root, int xPosition);
+  void drawBlackKey(Note root, int xPosition);
 
+public:
+  Keyboard(Squidbox *squidbox);
+  void update(Note root);
+  void draw(Note root);
+  void setKeyDown(Note note, bool down);
+  void setKeyDown(int note, bool down);
+};
