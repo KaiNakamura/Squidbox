@@ -6,6 +6,10 @@ Scene::Scene(Squidbox *squidbox, Menu *menu) : squidbox(squidbox), menu(menu) {}
 Squidbox *Scene::getSquidbox() { return squidbox; }
 
 void Scene::init() {
+  // Clear screen
+  squidbox->getScreen()->clear();
+
+  // Attach knob event callbacks
   Knob *knob = squidbox->getKnob();
   knob->detachLeftEventCallback();
   knob->detachRightEventCallback();
