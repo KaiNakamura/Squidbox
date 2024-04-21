@@ -12,7 +12,7 @@ Menu::Menu(const char *name, int numMenuItems, MenuItem **menuItems)
 Menu::Menu(const char *name, SceneType parentScene)
     : Menu(name, 0, nullptr, parentScene) {}
 
-void Menu::update(Squidbox *squidbox) {
+void Menu::drawMenu(Squidbox *squidbox) {
   // Handle joystick inputs
   Joystick *joystick = squidbox->getJoystick();
 
@@ -40,7 +40,12 @@ void Menu::update(Squidbox *squidbox) {
   }
 
   Screen *screen = squidbox->getScreen();
-  screen->clear();
+
+  // Clear portion of the screen that contains text
+  int clearHeight = (numMenuItems + 2) * 8; // 8 pixels per line
+  screen->getDisplay()->fillRect(0, 0, Screen::WIDTH, clearHeight, BLACK);
+
+  // Set text size, color, and cursor position
   screen->getDisplay()->setTextSize(1);
   screen->getDisplay()->setTextColor(WHITE);
   screen->getDisplay()->setCursor(0, 0);

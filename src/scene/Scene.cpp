@@ -14,4 +14,4 @@ void Scene::init() {
   knob->attachRightEventCallback(menu->onKnobRight);
 }
 
-void Scene::update() { menu->update(squidbox); }
+void Scene::update() { menu->drawMenu(squidbox); }

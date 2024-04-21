@@ -1,5 +1,6 @@
 #pragma once
 
+#include "gui/keyboard/Keyboard.h"
 #include "gui/menu-item/root-note/RootNoteMenuItem.h"
 #include "gui/menu-item/scale/ScaleMenuItem.h"
 #include "scene/Scene.h"
@@ -12,6 +13,7 @@ private:
   ChordType chordType;
   RootNoteMenuItem *rootMenuItem;
   ScaleMenuItem *scaleMenuItem;
+  Keyboard *keyboard;
   static const Note MIN_NOTE = NOTE_C1;
   static const Note MAX_NOTE = NOTE_C7;
 
