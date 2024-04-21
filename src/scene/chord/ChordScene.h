@@ -1,13 +1,12 @@
 #pragma once
 
-#include "gui/Keyboard/Keyboard.h"
+#include "gui/keyboard/Keyboard.h"
 #include "gui/menu-item/root-note/RootNoteMenuItem.h"
 #include "gui/menu-item/scale/ScaleMenuItem.h"
 #include "scene/Scene.h"
 #include "util/ChordType.h"
 #include "util/note/Note.h"
 #include "util/scale/Scale.h"
-
 
 class ChordScene : public Scene {
 private:
