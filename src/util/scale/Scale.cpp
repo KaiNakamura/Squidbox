@@ -32,10 +32,10 @@ int Scale::getNote(int root, int index) {
   return root + semitones[index % numNotes] + 12 * octaves;
 }
 
-int *Scale::getNotesFromChord(int root, int index, ChordType chord) {
-  int *notes = new int[chord.numNotes];
-  for (int i = 0; i < chord.numNotes; i++) {
-    notes[i] = getNote(root, index + chord.offsets[i]);
+int *Scale::getNotesFromChord(int root, int index, ChordType *chord) {
+  int *notes = new int[chord->numNotes];
+  for (int i = 0; i < chord->numNotes; i++) {
+    notes[i] = getNote(root, index + chord->offsets[i]);
   }
   return notes;
 }

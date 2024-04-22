@@ -11,8 +11,9 @@
 #include "scene/joystick-calibrator/JoystickCalibratorScene.h"
 #include "scene/knob/KnobScene.h"
 #include "scene/main/MainScene.h"
-#include "util/midi/MIDIServer.h"
+#include "scene/note/NoteScene.h"
 #include <Arduino.h>
+#include <BLEMidi.h>
 #include <esp_efuse.h>
 
 const int NUM_BUTTONS = 8;
