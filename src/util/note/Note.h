@@ -119,3 +119,6 @@ Note getPreviousNote(Note note, bool wrap);
 Note getNextNote(Note note);
 Note getPreviousNote(Note note);
 const char *noteToString(Note note);
+
+extern Note OCTAVES[];
+const int NUM_OCTAVES = 8;

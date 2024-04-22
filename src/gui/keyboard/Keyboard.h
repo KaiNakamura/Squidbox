@@ -9,7 +9,7 @@
 
 class Keyboard {
 private:
-  const static int STARTING_KEY_Y = 40;
+  const static int STARTING_KEY_Y = 42;
   const static int WHITE_KEY_WIDTH = 8;
   const static int WHITE_KEY_HEIGHT = 20;
   const static int BLACK_KEY_WIDTH = 5;

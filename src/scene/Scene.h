@@ -2,8 +2,6 @@
 
 #include "SceneType.h"
 
-const int NUM_SCENES = 5;
-
 class Squidbox;
 
 class Menu;

@@ -1,35 +1,33 @@
-#include "ChordScene.h"
+#include "NoteScene.h"
 #include "Squidbox.h"
 
-ChordScene::ChordScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
+NoteScene::NoteScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
   type = CHORD_SCENE;
 
   rootMenuItem = new RootNoteMenuItem();
   scaleMenuItem = new ScaleMenuItem();
-  chordTypeMenuItem = new ChordTypeMenuItem();
 
-  MenuItem **menuItems = new MenuItem *[3];
+  MenuItem **menuItems = new MenuItem *[2];
   menuItems[0] = rootMenuItem;
   menuItems[1] = scaleMenuItem;
-  menuItems[2] = chordTypeMenuItem;
 
-  menu = new Menu("Chords", 3, menuItems, MAIN_SCENE);
+  menu = new Menu("Chords", 2, menuItems, MAIN_SCENE);
 
   keyboard = new Keyboard(squidbox);
 }
 
-void ChordScene::init() { Scene::init(); }
+void NoteScene::init() { Scene::init(); }
 
-void ChordScene::update() {
+void NoteScene::update() {
   Scene::update();
 
   // Check if any of the buttons are pressed
   for (int i = 0; i < NUM_BUTTONS; i++) {
     Button *button = squidbox->getButton(i);
     if (squidbox->getButton(i)->isPressed()) {
-      playChord(i, true);
+      playNote(i, true);
     } else if (squidbox->getButton(i)->isReleased()) {
-      playChord(i, false);
+      playNote(i, false);
     }
   }
 
@@ -37,24 +35,21 @@ void ChordScene::update() {
   keyboard->update(rootMenuItem->getRootNote());
 }
 
-void ChordScene::playChord(int index, bool on) {
+void NoteScene::playNote(int index, bool on) {
   // TODO: Fix bug where switching root while chord playing causes notes to hang
 
   // Get scale, root note, and chord type from menu items
   Scale *scale = scaleMenuItem->getScale();
   Note root = rootMenuItem->getRootNote();
-  ChordType *chordType = chordTypeMenuItem->getChordType();
 
   // Get notes in chord
-  int *notes = scale->getNotesFromChord(root, index, chordType);
+  int note = scale->getNote(root, index);
 
   // Play notes
-  for (int i = 0; i < chordType->numNotes; i++) {
-    keyboard->setKeyDown(notes[i], on);
-    if (on) {
-      BLEMidiServer.noteOn(0, notes[i], 127);
-    } else {
-      BLEMidiServer.noteOff(0, notes[i], 127);
-    }
+  keyboard->setKeyDown(note, on);
+  if (on) {
+    BLEMidiServer.noteOn(0, note, 127);
+  } else {
+    BLEMidiServer.noteOff(0, note, 127);
   }
 }

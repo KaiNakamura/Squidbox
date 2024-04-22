@@ -1,5 +1,8 @@
 #include "Note.h"
 
+Note OCTAVES[] = {NOTE_C1, NOTE_C2, NOTE_C3, NOTE_C4,
+                  NOTE_C5, NOTE_C6, NOTE_C7, NOTE_C8};
+
 Note getNextNote(Note note, Note minNote, Note maxNote, bool wrap) {
   return (note == maxNote) ? (wrap ? minNote : maxNote)
                            : static_cast<Note>((note % maxNote) + 1);
