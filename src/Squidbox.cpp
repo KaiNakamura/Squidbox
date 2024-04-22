@@ -25,6 +25,7 @@ void Squidbox::init() {
   scenes[MAIN_SCENE] = new MainScene(this);
   scenes[CHORD_SCENE] = new ChordScene(this);
   scenes[NOTE_SCENE] = new NoteScene(this);
+  scenes[DRUM_SCENE] = new DrumScene(this);
   scenes[JOYSTICK_CALIBRATOR_SCENE] = new JoystickCalibratorScene(this);
   scenes[KNOB_SCENE] = new KnobScene(this);
   scenes[BUTTON_SCENE] = new ButtonScene(this);

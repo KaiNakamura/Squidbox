@@ -8,14 +8,15 @@ MainScene::MainScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
       new SwitchSceneMenuItem("Chords", squidbox, CHORD_SCENE);
   MenuItem *noteMenuItem =
       new SwitchSceneMenuItem("Notes", squidbox, NOTE_SCENE);
-  MenuItem *joystickCalibratorMenuItem = new SwitchSceneMenuItem(
-      "Joystick Calibrator", squidbox, JOYSTICK_CALIBRATOR_SCENE);
+  MenuItem *drumMenuItem =
+      new SwitchSceneMenuItem("Drums", squidbox, DRUM_SCENE);
 
-  MenuItem **menuItems = new MenuItem *[2];
+  MenuItem **menuItems = new MenuItem *[3];
   menuItems[0] = chordMenuItem;
   menuItems[1] = noteMenuItem;
+  menuItems[2] = drumMenuItem;
 
-  menu = new Menu("Squidbox", 2, menuItems);
+  menu = new Menu("Squidbox", 3, menuItems);
 }
 
 void MainScene::init() { Scene::init(); }
