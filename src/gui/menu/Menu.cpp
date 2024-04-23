@@ -20,6 +20,12 @@ void Menu::drawMenu(Squidbox *squidbox) {
     selectedIndex = getPreviousIndex();
   } else if (joystick->wasDownJustInputted()) {
     selectedIndex = getNextIndex();
+  } else if (joystick->wasLeftJustInputted()) {
+    // If left inputted, trigger onKnobLeft event for selected menu item
+    menuItems[selectedIndex]->onKnobLeft();
+  } else if (joystick->wasRightJustInputted()) {
+    // If right inputted, trigger onKnobRight event for selected menu item
+    menuItems[selectedIndex]->onKnobRight();
   }
 
   // Handle ok button
