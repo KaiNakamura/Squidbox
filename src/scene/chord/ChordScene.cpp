@@ -53,6 +53,8 @@ void ChordScene::playChord(int index, bool on) {
     keyboard->setKeyDown(notes[i], on);
     if (on) {
       BLEMidiServer.noteOn(0, notes[i], 127);
+      Serial.println("note sent: ");
+      Serial.println(notes[i]);
     } else {
       BLEMidiServer.noteOff(0, notes[i], 127);
     }

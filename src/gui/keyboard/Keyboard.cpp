@@ -18,8 +18,8 @@ Keyboard::Keyboard(Squidbox *squidbox) : squidbox(squidbox) {
 void Keyboard::setWhiteKeys() {
   for (Note note = NOTE_A0; note < NOTE_G9; note = getNextNote(note)) {
     int rootIndex = note % 12;
-    if (rootIndex != 1 && rootIndex != 6 && rootIndex != 8 && rootIndex != 3 &&
-        rootIndex != 10) {
+    if (rootIndex == 0 || rootIndex == 2 || rootIndex == 4 || rootIndex == 5 ||
+        rootIndex == 7 || rootIndex == 9 || rootIndex == 11) {
       keys[note]->setWhite(true);
     }
   }
@@ -42,6 +42,8 @@ void Keyboard::drawWhiteKey(Note note, int xPosition) {
   if (keys[note]->isDown()) {
     display->fillRect(xPosition, STARTING_KEY_Y, WHITE_KEY_WIDTH,
                       WHITE_KEY_HEIGHT, WHITE);
+                      Serial.println("note displayed:"); // debug
+                      Serial.println(note); // debug
   } else {
     display->drawRect(xPosition, STARTING_KEY_Y, WHITE_KEY_WIDTH,
                       WHITE_KEY_HEIGHT, WHITE);
@@ -55,6 +57,8 @@ void Keyboard::drawBlackKey(Note note, int xPosition) {
   if (keys[note]->isDown()) {
     display->fillRect(xPosition, STARTING_KEY_Y, BLACK_KEY_WIDTH,
                       BLACK_KEY_HEIGHT, WHITE);
+                      Serial.println("note displayed:"); // debug
+                      Serial.println(note); // debug
   } else {
     display->fillRect(xPosition, STARTING_KEY_Y, BLACK_KEY_WIDTH,
                       BLACK_KEY_HEIGHT, BLACK);
@@ -73,6 +77,7 @@ void Keyboard::update(Note root) {
     lastUpdate = currentTime;
   }
 }
+
 void Keyboard::draw(Note root) {
   Screen *screen = squidbox->getScreen();
 
