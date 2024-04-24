@@ -10,13 +10,15 @@ MainScene::MainScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
       new SwitchSceneMenuItem("Notes", squidbox, NOTE_SCENE);
   MenuItem *drumMenuItem =
       new SwitchSceneMenuItem("Drums", squidbox, DRUM_SCENE);
+  MenuItem *quitMenuItem = new QuitMenuItem(squidbox);
 
-  MenuItem **menuItems = new MenuItem *[3];
+  MenuItem **menuItems = new MenuItem *[4];
   menuItems[0] = chordMenuItem;
   menuItems[1] = noteMenuItem;
   menuItems[2] = drumMenuItem;
+  menuItems[3] = quitMenuItem;
 
-  menu = new Menu("Squidbox", 3, menuItems);
+  menu = new Menu("Squidbox", 4, menuItems);
 }
 
 void MainScene::init() { Scene::init(); }

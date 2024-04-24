@@ -37,6 +37,7 @@ public:
   void init();
   void update();
   void switchTo(SceneType scene);
+  void sleep();
   Screen *getScreen();
   Joystick *getJoystick();
   Knob *getKnob();
