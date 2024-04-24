@@ -18,6 +18,8 @@ Squidbox::Squidbox() {
   buttons[5] = new Button(PIN_BUTTON_5);
   buttons[6] = new Button(PIN_BUTTON_6);
   buttons[7] = new Button(PIN_BUTTON_7);
+
+  esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(PIN_BUTTON_0), 0);
 }
 
 void Squidbox::init() {
@@ -48,6 +50,12 @@ void Squidbox::switchTo(SceneType scene) {
     currentScene = scene;
     currentSceneInitialized = false;
   }
+}
+
+void Squidbox::sleep() {
+  screen->clear();
+  screen->update();
+  esp_deep_sleep_start();
 }
 
 Screen *Squidbox::getScreen() { return screen; }
