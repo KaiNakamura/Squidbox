@@ -26,24 +26,29 @@ void MenuItem::setOnKnobRightCallback(CallbackFunction cb, void *arg) {
 }
 
 void MenuItem::onSelect() {
+  // If a select callback is set, call it with the provided argument
   if (selectCallback) {
     selectCallback(selectArg);
   }
 }
 
 void MenuItem::onKnobLeft() {
+  // If a knob left callback is set, call it with the provided argument
   if (knobLeftCallback) {
     knobLeftCallback(knobLeftArg);
   }
 }
 
 void MenuItem::onKnobRight() {
+  // If a knob right callback is set, call it with the provided argument
   if (knobRightCallback) {
     knobRightCallback(knobRightArg);
   }
 }
 
 Ascii MenuItem::getPrefix() {
+  // If either a knob left or knob right callback is set, return the double
+  // vertical arrow Otherwise, return the right fat arrow
   if (knobLeftCallback || knobRightCallback) {
     return ASCII_DOUBLE_VERTICAL_ARROW;
   }

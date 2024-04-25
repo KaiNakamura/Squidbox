@@ -1,34 +1,55 @@
 #include "Knob.h"
 
 Knob::Knob(int aPin, int bPin, int buttonPin) : buttonPin(buttonPin) {
+  // Set the button pin as an input with a pull-up resistor.
   pinMode(buttonPin, INPUT_PULLUP);
+  // Create a new ESP_Knob object with the given aPin and bPin.
   knob = new ESP_Knob(aPin, bPin);
+  // Initialize the ESP_Knob object.
   knob->begin();
 }
 
-// TODO: This function does not currently work, something with the wiring is
-// messed up
-bool Knob::isPressed() { return digitalRead(buttonPin); }
+bool Knob::isPressed() {
+  // Read the digital value from the buttonPin and return it.
+  // Note: This function is currently not working due to a wiring issue.
+  return digitalRead(buttonPin);
+}
 
-// TODO: For some reason the knob count increases by 2 for every click, should
-// be changed to 1 per click
-int Knob::getCount() { return knob->getCountValue(); }
+int Knob::getCount() {
+  // Return the count value from the ESP_Knob object.
+  // Note: The count value on the ESP_Knob increases by 2 for every click.
+  return knob->getCountValue();
+}
 
-void Knob::clearCount() { knob->clearCountValue(); }
+void Knob::clearCount() {
+  // Clear the count value in the ESP_Knob object.
+  knob->clearCountValue();
+}
 
 void Knob::setEventUserData(void *usr_data) {
-  // Ignore that they mispelled Data as Date in the ESP_Knob library...
+  // Set the user data for events in the ESP_Knob object.
+  // Note: The ESP_Knob library misspelled "Data" as "Date".
   knob->setEventUserDate(usr_data);
 }
 
 void Knob::attachLeftEventCallback(std::function<void(int, void *)> callback) {
+  // Attach the given callback function to the left event in the ESP_Knob
+  // object.
   knob->attachLeftEventCallback(callback);
 }
 
-void Knob::detachLeftEventCallback(void) { knob->detachLeftEventCallback(); }
+void Knob::detachLeftEventCallback(void) {
+  // Detach the callback function from the left event in the ESP_Knob object.
+  knob->detachLeftEventCallback();
+}
 
 void Knob::attachRightEventCallback(std::function<void(int, void *)> callback) {
+  // Attach the given callback function to the right event in the ESP_Knob
+  // object.
   knob->attachRightEventCallback(callback);
 }
 
-void Knob::detachRightEventCallback(void) { knob->detachRightEventCallback(); }
+void Knob::detachRightEventCallback(void) {
+  // Detach the callback function from the right event in the ESP_Knob object.
+  knob->detachRightEventCallback();
+}

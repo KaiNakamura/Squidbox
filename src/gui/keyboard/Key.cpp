@@ -1,16 +1,6 @@
 #include "Key.h"
 
-Key::Key() {
-  this->down = false;
-  this->white = false;
-  this->note = NOTE_A0;
-}
-
-Key::Key(bool down, bool white, Note note) {
-  this->down = false;
-  this->white = white;
-  this->note = note;
-}
+Key::Key(Note note, bool white) : note(note), white(white), down(false) {}
 
 bool Key::isDown() { return this->down; }
 
