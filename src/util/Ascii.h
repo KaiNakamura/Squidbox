@@ -1,5 +1,13 @@
 #pragma once
 
+/**
+ * @enum Ascii
+ * @brief This enum represents the ASCII characters from 0 to 255.
+ *
+ * The ASCII enum provides a list of all the ASCII characters from 0 to 255.
+ * Each character is represented by a unique value, which can be used to access
+ * the corresponding character in the ASCII table.
+ */
 enum Ascii {
   ASCII_NULL = 0,
   ASCII_EMPTY_SMILEY = 1,

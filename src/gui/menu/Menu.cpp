@@ -13,31 +13,31 @@ Menu::Menu(const char *name, SceneType parentScene)
     : Menu(name, 0, nullptr, parentScene) {}
 
 void Menu::drawMenu(Squidbox *squidbox) {
-  // Handle joystick inputs
+  // Get joystick input
   Joystick *joystick = squidbox->getJoystick();
 
+  // Update selected index based on joystick input
   if (joystick->wasUpJustInputted()) {
     selectedIndex = getPreviousIndex();
   } else if (joystick->wasDownJustInputted()) {
     selectedIndex = getNextIndex();
   } else if (joystick->wasLeftJustInputted()) {
-    // If left inputted, trigger onKnobLeft event for selected menu item
+    // Trigger onKnobLeft event for selected menu item
     menuItems[selectedIndex]->onKnobLeft();
   } else if (joystick->wasRightJustInputted()) {
-    // If right inputted, trigger onKnobRight event for selected menu item
+    // Trigger onKnobRight event for selected menu item
     menuItems[selectedIndex]->onKnobRight();
   }
 
-  // Handle ok button
+  // If OK button is pressed, trigger onSelect event for selected menu item
   if (hasMenuItems()) {
     Button *okButton = squidbox->getOkButton();
-
     if (okButton->isPressed()) {
       menuItems[selectedIndex]->onSelect();
     }
   }
 
-  // Handle back button
+  // If back button is pressed, switch to parent scene
   if (hasParentScene()) {
     Button *backButton = squidbox->getBackButton();
     if (backButton->isPressed()) {
@@ -45,9 +45,8 @@ void Menu::drawMenu(Squidbox *squidbox) {
     }
   }
 
+  // Get screen and clear portion of the screen that contains text
   Screen *screen = squidbox->getScreen();
-
-  // Clear portion of the screen that contains text
   int clearHeight = (numMenuItems + 2) * 8; // 8 pixels per line
   screen->getDisplay()->fillRect(0, 0, Screen::WIDTH, clearHeight, BLACK);
 
@@ -67,11 +66,13 @@ void Menu::drawMenu(Squidbox *squidbox) {
   screen->getDisplay()->write(ASCII_PERCENT);
   screen->getDisplay()->printf("\n");
 
+  // Print menu name
   if (hasParentScene()) {
     screen->getDisplay()->write(ASCII_LEFT_ARROW);
   }
   screen->getDisplay()->printf("%s\n", name);
 
+  // Print menu items
   for (int i = 0; i < numMenuItems; i++) {
     MenuItem *menuItem = menuItems[i];
     int prefix = i == selectedIndex ? menuItem->getPrefix() : ASCII_NULL;
@@ -79,18 +80,32 @@ void Menu::drawMenu(Squidbox *squidbox) {
     screen->getDisplay()->printf("%s\n", menuItem->getName());
   }
 
+  // Update screen
   screen->update();
 }
 
 void Menu::setName(const char *name) { this->name = name; }
 
-bool Menu::hasMenuItems() { return numMenuItems > 0; }
+bool Menu::hasMenuItems() {
+  // Check if the number of menu items is greater than 0
+  return numMenuItems > 0;
+}
 
-bool Menu::hasParentScene() { return parentScene != NULL_SCENE; }
+bool Menu::hasParentScene() {
+  // Check if the parent scene is not equal to NULL_SCENE
+  return parentScene != NULL_SCENE;
+}
 
-int Menu::getNextIndex() { return min(selectedIndex + 1, numMenuItems - 1); }
+int Menu::getNextIndex() {
+  // Calculate the next index, ensuring it doesn't exceed the number of menu
+  // items
+  return min(selectedIndex + 1, numMenuItems - 1);
+}
 
-int Menu::getPreviousIndex() { return max(selectedIndex - 1, 0); }
+int Menu::getPreviousIndex() {
+  // Calculate the previous index, ensuring it doesn't go below 0
+  return max(selectedIndex - 1, 0);
+}
 
 void Menu::onKnobLeft(int count, void *usr_data) {
   Menu *self = static_cast<Menu *>(usr_data);

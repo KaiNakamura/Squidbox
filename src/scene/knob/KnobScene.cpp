@@ -2,30 +2,45 @@
 #include "Squidbox.h"
 
 KnobScene::KnobScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
-  type = KNOB_SCENE;
-  menu = new Menu("Squidbox", MAIN_SCENE);
+  // Create a new menu with the name "Knob" and parent scene as MAIN_SCENE
+  menu = new Menu("Knob", MAIN_SCENE);
 }
 
 void KnobScene::init() {
+  // Call the initialization function of the parent class
   Scene::init();
+
+  // Get the knob from the squidbox
   Knob *knob = squidbox->getKnob();
+
+  // Attach the left and right event callbacks to the knob
   knob->attachLeftEventCallback(leftCallback);
   knob->attachRightEventCallback(rightCallback);
+
+  // Set the user data for the knob events to this instance of KnobScene
   knob->setEventUserData(this);
 }
 
-void KnobScene::update() { Scene::update(); }
-
 void KnobScene::leftCallback(int count, void *usr_data) {
+  // Cast the user data to a KnobScene instance
   KnobScene *self = static_cast<KnobScene *>(usr_data);
-  int count2 = self->squidbox->getKnob()->getCount();
+
+  // Get the count from the knob in the squidbox
+  int squidboxCount = self->squidbox->getKnob()->getCount();
+
+  // Print a message indicating a left event was detected
   Serial.printf("Detect left event, count is %d, squidbox count is %d\n", count,
-                count2);
+                squidboxCount);
 }
 
 void KnobScene::rightCallback(int count, void *usr_data) {
+  // Cast the user data to a KnobScene instance
   KnobScene *self = static_cast<KnobScene *>(usr_data);
-  int count2 = self->squidbox->getKnob()->getCount();
+
+  // Get the count from the knob in the squidbox
+  int squidboxCount = self->squidbox->getKnob()->getCount();
+
+  // Print a message indicating a right event was detected
   Serial.printf("Detect right event, count is %d, squidbox count is %d\n",
-                count, count2);
+                count, squidboxCount);
 }

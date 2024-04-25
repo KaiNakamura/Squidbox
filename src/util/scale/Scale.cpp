@@ -25,17 +25,30 @@ Scale::Scale(const char *name, int numNotes, int *semitones)
 const char *Scale::getName() { return name; }
 
 int Scale::getNote(int root, int index) {
+  // Check if the index is negative
   if (index < 0) {
+    // If it is, print an error message and return
     Serial.printf("Error: Scale semitone not found with index %d\n", index);
+    return -1;
   }
+  // Calculate the number of octaves by integer division of the index by the
+  // number of notes
   int octaves = index / numNotes;
+  // Calculate the note by adding the root, the semitone at the index modulo the
+  // number of notes, and 12 times the number of octaves
   return root + semitones[index % numNotes] + 12 * octaves;
 }
 
 int *Scale::getNotesFromChord(int root, int index, ChordType *chord) {
+  // Allocate an array of integers to hold the notes
   int *notes = new int[chord->numNotes];
+  // Loop over the number of notes in the chord
   for (int i = 0; i < chord->numNotes; i++) {
+    // For each note, calculate the note by calling getNote with the root, the
+    // index plus the offset at the current index in the chord, and store it in
+    // the notes array
     notes[i] = getNote(root, index + chord->offsets[i]);
   }
+  // Return the notes array
   return notes;
 }
