@@ -2,31 +2,34 @@
 #include "Squidbox.h"
 
 NoteScene::NoteScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
-  type = CHORD_SCENE;
-
+  // Create new menu items for root note and scale
   rootMenuItem = new RootNoteMenuItem();
   scaleMenuItem = new ScaleMenuItem();
 
+  // Create an array of menu items
   MenuItem **menuItems = new MenuItem *[2];
   menuItems[0] = rootMenuItem;
   menuItems[1] = scaleMenuItem;
 
+  // Create a new menu with the menu items
   menu = new Menu("Chords", 2, menuItems, MAIN_SCENE);
 
+  // Create a new keyboard
   keyboard = new Keyboard(squidbox);
 }
 
-void NoteScene::init() { Scene::init(); }
-
 void NoteScene::update() {
+  // Call the update function of the parent class
   Scene::update();
 
   // Check if any of the buttons are pressed
-  for (int i = 0; i < NUM_BUTTONS; i++) {
+  for (int i = 0; i < Squidbox::NUM_BUTTONS; i++) {
     Button *button = squidbox->getButton(i);
     if (squidbox->getButton(i)->isPressed()) {
+      // If the button is pressed, play the note
       playNote(i, true);
     } else if (squidbox->getButton(i)->isReleased()) {
+      // If the button is released, stop playing the note
       playNote(i, false);
     }
   }
@@ -35,9 +38,8 @@ void NoteScene::update() {
   keyboard->update(rootMenuItem->getRootNote());
 }
 
+// TODO: Fix bug where switching root while playing note causes it to hang
 void NoteScene::playNote(int index, bool on) {
-  // TODO: Fix bug where switching root while chord playing causes notes to hang
-
   // Get scale, root note, and chord type from menu items
   Scale *scale = scaleMenuItem->getScale();
   Note root = rootMenuItem->getRootNote();

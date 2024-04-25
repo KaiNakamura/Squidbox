@@ -2,37 +2,22 @@
 #include "Squidbox.h"
 
 Keyboard::Keyboard(Squidbox *squidbox) : squidbox(squidbox) {
+  // Initialize the array of keys
   this->keys = new Key *[NOTE_G9];
 
   // Create notes
   for (Note note = NOTE_A0; note < NOTE_G9; note = getNextNote(note)) {
-    keys[note] = new Key();
+    // For each note, create a new Key and set its note and color
+    int rootIndex = note % 12;
+    keys[note] = new Key(note, isWhiteKey(rootIndex));
     keys[note]->setNote(note);
   }
-
-  // Set keys as white and black
-  setWhiteKeys();
-  setBlackKeys();
 }
 
-void Keyboard::setWhiteKeys() {
-  for (Note note = NOTE_A0; note < NOTE_G9; note = getNextNote(note)) {
-    int rootIndex = note % 12;
-    if (rootIndex == 0 || rootIndex == 2 || rootIndex == 4 || rootIndex == 5 ||
-        rootIndex == 7 || rootIndex == 9 || rootIndex == 11) {
-      keys[note]->setWhite(true);
-    }
-  }
-}
-
-void Keyboard::setBlackKeys() {
-  for (Note note = NOTE_A0; note < NOTE_G9; note = getNextNote(note)) {
-    int rootIndex = note % 12;
-    if (rootIndex == 1 || rootIndex == 6 || rootIndex == 8 || rootIndex == 3 ||
-        rootIndex == 10) {
-      keys[note]->setWhite(false);
-    }
-  }
+bool Keyboard::isWhiteKey(int rootIndex) {
+  // Return true if the rootIndex corresponds to a white key, false otherwise
+  return !(rootIndex == 1 || rootIndex == 6 || rootIndex == 8 ||
+           rootIndex == 3 || rootIndex == 10);
 }
 
 void Keyboard::drawWhiteKey(Note note, int xPosition) {
@@ -42,8 +27,6 @@ void Keyboard::drawWhiteKey(Note note, int xPosition) {
   if (keys[note]->isDown()) {
     display->fillRect(xPosition, STARTING_KEY_Y, WHITE_KEY_WIDTH,
                       WHITE_KEY_HEIGHT, WHITE);
-                      Serial.println("note displayed:"); // debug
-                      Serial.println(note); // debug
   } else {
     display->drawRect(xPosition, STARTING_KEY_Y, WHITE_KEY_WIDTH,
                       WHITE_KEY_HEIGHT, WHITE);
@@ -57,8 +40,6 @@ void Keyboard::drawBlackKey(Note note, int xPosition) {
   if (keys[note]->isDown()) {
     display->fillRect(xPosition, STARTING_KEY_Y, BLACK_KEY_WIDTH,
                       BLACK_KEY_HEIGHT, WHITE);
-                      Serial.println("note displayed:"); // debug
-                      Serial.println(note); // debug
   } else {
     display->fillRect(xPosition, STARTING_KEY_Y, BLACK_KEY_WIDTH,
                       BLACK_KEY_HEIGHT, BLACK);
@@ -66,12 +47,13 @@ void Keyboard::drawBlackKey(Note note, int xPosition) {
                       BLACK_KEY_HEIGHT, WHITE);
   }
 }
-
 void Keyboard::update(Note root) {
+  // Get the current time and calculate the elapsed time since the last update
   unsigned long currentTime = millis();
   unsigned long elapsed = currentTime - lastUpdate;
 
-  // Draw keyboard if enough time has passed since the last update
+  // If enough time has passed, draw the keyboard and update the last update
+  // time
   if (elapsed >= 1000 / REFRESH_RATE) {
     draw(root);
     lastUpdate = currentTime;
@@ -79,12 +61,14 @@ void Keyboard::update(Note root) {
 }
 
 void Keyboard::draw(Note root) {
+  // Get the screen object
   Screen *screen = squidbox->getScreen();
 
-  // Clear portion of the screen that contains the keyboard
+  // Clear the portion of the screen that contains the keyboard
   screen->getDisplay()->fillRect(0, STARTING_KEY_Y, Screen::WIDTH,
                                  WHITE_KEY_HEIGHT, BLACK);
 
+  // Initialize the positions of the white and black keys
   int whiteKeyPosition = 2; // Initial position of the first white key
   int blackKeyPosition = 8; // Initial position of the first black key
 
@@ -121,6 +105,9 @@ void Keyboard::draw(Note root) {
   screen->update();
 }
 
-void Keyboard::setKeyDown(Note note, bool down) { setKeyDown(note, down); }
+void Keyboard::setKeyDown(int note, bool down) {
+  // Set the key down status for the given note
+  keys[note]->setDown(down);
+}
 
-void Keyboard::setKeyDown(int note, bool down) { keys[note]->setDown(down); }
+void Keyboard::setKeyDown(Note note, bool down) { setKeyDown(note, down); }
