@@ -9,3 +9,8 @@ test/tmp_pio_test_transport.cpp
 
 # config file
 src/config/config.h
+
+# Ignore Doxygen generated files
+doxygen_log.txt
+html/
+latex/
