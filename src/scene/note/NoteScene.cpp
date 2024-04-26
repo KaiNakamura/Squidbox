@@ -39,7 +39,6 @@ void NoteScene::update() {
   keyboard->update(rootMenuItem->getRootNote());
 }
 
-// TODO: Fix bug where switching root while playing note causes it to hang
 void NoteScene::playNote(int index, bool on) {
   // Get scale, root note, and chord type from menu items
   Scale *scale = scaleMenuItem->getScale();
