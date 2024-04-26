@@ -1,18 +1,17 @@
 #pragma once
 
 #include "gui/menu-item/MenuItem.h"
-#include "util/scale/Scale.h"
+#include "util/note/Note.h"
+#include <Arduino.h>
 
 /**
- * @class ScaleMenuItem
- * @brief A class that represents a menu item for scales.
+ * @class OctaveMenuItem
+ * @brief A class that represents a menu item for octaves.
  * @details This class is a subclass of MenuItem and adds functionality for
- * handling scales.
+ * handling octaves.
  */
-class ScaleMenuItem : public MenuItem {
+class OctaveMenuItem : public MenuItem {
 private:
-  int scaleIndex; ///< The index of the scale.
-
   /**
    * @brief Handle the left knob event.
    * @param arg The argument passed to the event handler.
@@ -26,19 +25,21 @@ private:
   static void onKnobRight(void *arg);
 
   /**
-   * @brief Update the name of the menu item based on the current scale.
+   * @brief Update the name of the menu item based on the current octave.
    */
   void updateName();
 
+  int octaveIndex; ///< The index of the octave.
+
 public:
   /**
-   * @brief Construct a new ScaleMenuItem object.
+   * @brief Construct a new OctaveMenuItem object.
    */
-  ScaleMenuItem();
+  OctaveMenuItem();
 
   /**
-   * @brief Get the current scale.
-   * @return The current scale.
+   * @brief Get the current note.
+   * @return The current note.
    */
-  Scale *getScale();
+  Note getNote();
 };

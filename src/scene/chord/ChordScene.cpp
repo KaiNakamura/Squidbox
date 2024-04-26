@@ -2,45 +2,63 @@
 #include "Squidbox.h"
 
 ChordScene::ChordScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
-  type = CHORD_SCENE;
-  chordType = TRIAD;
-
+  // Create menu items for root note, scale, and chord type
   rootMenuItem = new RootNoteMenuItem();
   scaleMenuItem = new ScaleMenuItem();
+  chordTypeMenuItem = new ChordTypeMenuItem();
 
-  MenuItem **menuItems = new MenuItem *[2];
+  // Create an array of menu items
+  MenuItem **menuItems = new MenuItem *[3];
   menuItems[0] = rootMenuItem;
   menuItems[1] = scaleMenuItem;
+  menuItems[2] = chordTypeMenuItem;
 
-  menu = new Menu("Chords", 2, menuItems, MAIN_SCENE);
+  // Create a new menu with the menu items
+  menu = new Menu("Chords", 3, menuItems, MAIN_SCENE);
+
+  // Create a new keyboard
+  keyboard = new Keyboard(squidbox);
 }
 
-void ChordScene::init() { Scene::init(); }
-
 void ChordScene::update() {
+  // Call the update function of the parent class
   Scene::update();
 
   // Check if any of the buttons are pressed
-  for (int i = 0; i < NUM_BUTTONS; i++) {
+  for (int i = 0; i < Squidbox::NUM_BUTTONS; i++) {
     Button *button = squidbox->getButton(i);
-    if (squidbox->getButton(i)->isPressed()) {
+    if (button->isPressed()) {
+      // If the button is pressed, play the chord
       playChord(i, true);
-    } else if (squidbox->getButton(i)->isReleased()) {
+    } else if (button->isReleased()) {
+      // If the button is released, stop playing the chord
       playChord(i, false);
     }
   }
+
+  // Update the keyboard with the current root note
+  keyboard->update(rootMenuItem->getRootNote());
 }
 
+// TODO: Fix bug where switching root while playing chord causes notes to hang
 void ChordScene::playChord(int index, bool on) {
-  // TODO: Fix bug where switching root while chord playing causes notes to hang
+  // Get the current scale, root note, and chord type from the menu items
   Scale *scale = scaleMenuItem->getScale();
   Note root = rootMenuItem->getRootNote();
+  ChordType *chordType = chordTypeMenuItem->getChordType();
+
+  // Get the notes in the chord
   int *notes = scale->getNotesFromChord(root, index, chordType);
-  for (int i = 0; i < chordType.numNotes; i++) {
+
+  // Play or stop playing the notes
+  for (int i = 0; i < chordType->numNotes; i++) {
+    keyboard->setKeyDown(notes[i], on);
     if (on) {
-      MIDIServer::noteOn(0, notes[i], 127);
+      // If the chord should be played, send a note on message
+      BLEMidiServer.noteOn(0, notes[i], 127);
     } else {
-      MIDIServer::noteOff(0, notes[i], 127);
+      // If the chord should be stopped, send a note off message
+      BLEMidiServer.noteOff(0, notes[i], 127);
     }
   }
 }

@@ -1,5 +1,12 @@
 #pragma once
 
+/**
+ * @brief Enum representing MIDI note numbers.
+ *
+ * This enum represents the MIDI note numbers for the notes in several octaves,
+ * from A0 to G9. The numbers correspond to the MIDI standard, where A0 is 21
+ * and G9 is 127.
+ */
 enum Note {
   NOTE_A0 = 21,
   NOTE_ASHARP0 = 22,
@@ -110,12 +117,108 @@ enum Note {
   NOTE_G9 = 127
 };
 
+/**
+ * @brief Get the next note in the sequence.
+ *
+ * @param note The current note.
+ * @param minNote The minimum note in the sequence.
+ * @param maxNote The maximum note in the sequence.
+ * @param wrap Whether to wrap around to the beginning of the sequence when the
+ * end is reached.
+ * @return The next note in the sequence.
+ */
 Note getNextNote(Note note, Note minNote, Note maxNote, bool wrap);
+
+/**
+ * @brief Get the previous note in the sequence.
+ *
+ * @param note The current note.
+ * @param minNote The minimum note in the sequence.
+ * @param maxNote The maximum note in the sequence.
+ * @param wrap Whether to wrap around to the end of the sequence when the
+ * beginning is reached.
+ * @return The previous note in the sequence.
+ */
 Note getPreviousNote(Note note, Note minNote, Note maxNote, bool wrap);
+
+/**
+ * @brief Get the next note in the sequence, without wrapping.
+ *
+ * @param note The current note.
+ * @param minNote The minimum note in the sequence.
+ * @param maxNote The maximum note in the sequence.
+ * @return The next note in the sequence, or the maximum note if the current
+ * note is the maximum.
+ */
 Note getNextNote(Note note, Note minNote, Note maxNote);
+
+/**
+ * @brief Get the previous note in the sequence, without wrapping.
+ *
+ * @param note The current note.
+ * @param minNote The minimum note in the sequence.
+ * @param maxNote The maximum note in the sequence.
+ * @return The previous note in the sequence, or the minimum note if the current
+ * note is the minimum.
+ */
 Note getPreviousNote(Note note, Note minNote, Note maxNote);
+
+/**
+ * @brief Get the next note in the sequence, with a specified wrap setting.
+ *
+ * @param note The current note.
+ * @param wrap Whether to wrap around to the beginning of the sequence when the
+ * end is reached.
+ * @return The next note in the sequence.
+ */
 Note getNextNote(Note note, bool wrap);
+
+/**
+ * @brief Get the previous note in the sequence, with a specified wrap setting.
+ *
+ * @param note The current note.
+ * @param wrap Whether to wrap around to the end of the sequence when the
+ * beginning is reached.
+ * @return The previous note in the sequence.
+ */
 Note getPreviousNote(Note note, bool wrap);
+
+/**
+ * @brief Get the next note in the sequence, without wrapping.
+ *
+ * @param note The current note.
+ * @return The next note in the sequence, or the maximum note if the current
+ * note is the maximum.
+ */
 Note getNextNote(Note note);
+
+/**
+ * @brief Get the previous note in the sequence, without wrapping.
+ *
+ * @param note The current note.
+ * @return The previous note in the sequence, or the minimum note if the current
+ * note is the minimum.
+ */
 Note getPreviousNote(Note note);
+
+/**
+ * @brief Convert a note to a string.
+ *
+ * @param note The note to convert.
+ * @return A string representation of the note.
+ */
 const char *noteToString(Note note);
+
+/**
+ * @brief Array representing the starting note of each octave.
+ *
+ * This array contains the starting note (C) of each octave, from C1 to C8.
+ */
+extern Note OCTAVES[];
+
+/**
+ * @brief Constant representing the number of octaves.
+ *
+ * This constant is set to 8, representing the number of octaves from C1 to C8.
+ */
+const int NUM_OCTAVES = 8;

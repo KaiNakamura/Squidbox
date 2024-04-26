@@ -1,7 +1,6 @@
 #pragma once
 
 #include "gui/keyboard/Keyboard.h"
-#include "gui/menu-item/chord-type/ChordTypeMenuItem.h"
 #include "gui/menu-item/root-note/RootNoteMenuItem.h"
 #include "gui/menu-item/scale/ScaleMenuItem.h"
 #include "scene/Scene.h"
@@ -10,20 +9,18 @@
 #include "util/scale/Scale.h"
 
 /**
- * @class ChordScene
- * @brief A class that represents a scene for playing chords.
+ * @class NoteScene
+ * @brief A class that represents a scene for playing notes.
  * @details This class is a subclass of Scene and adds functionality for playing
- * chords. It includes a keyboard for playing chords, and menu items for
- * selecting the root note, scale, and chord type.
+ * notes. It includes a keyboard for playing notes, and menu items for selecting
+ * the root note and scale.
  */
-class ChordScene : public Scene {
+class NoteScene : public Scene {
 private:
   RootNoteMenuItem
       *rootMenuItem;            ///< The menu item for selecting the root note.
   ScaleMenuItem *scaleMenuItem; ///< The menu item for selecting the scale.
-  ChordTypeMenuItem
-      *chordTypeMenuItem; ///< The menu item for selecting the chord type.
-  Keyboard *keyboard;     ///< The keyboard for playing chords.
+  Keyboard *keyboard;           ///< The keyboard for playing notes.
   static const Note MIN_NOTE =
       NOTE_C1; ///< The minimum note that can be played.
   static const Note MAX_NOTE =
@@ -31,20 +28,20 @@ private:
 
 public:
   /**
-   * @brief Construct a new ChordScene object.
+   * @brief Construct a new NoteScene object.
    * @param squidbox The Squidbox object.
    */
-  ChordScene(Squidbox *squidbox);
+  NoteScene(Squidbox *squidbox);
 
   /**
-   * @brief Update the chord scene.
+   * @brief Update the scene.
    */
   void update() override;
 
   /**
-   * @brief Play a chord.
-   * @param index The index of the chord to play.
-   * @param on Whether the chord should be played or stopped.
+   * @brief Play a note.
+   * @param index The index of the note to play.
+   * @param on Whether the note should be played or stopped.
    */
-  void playChord(int index, bool on);
+  void playNote(int index, bool on);
 };
