@@ -28,7 +28,8 @@ void NoteScene::update() {
     if (squidbox->getButton(i)->isPressed()) {
       // If the button is pressed, play the note
       playNote(i, true);
-    } else if (squidbox->getButton(i)->isReleased()) {
+    }
+    if (squidbox->getButton(i)->isReleased()) {
       // If the button is released, stop playing the note
       playNote(i, false);
     }

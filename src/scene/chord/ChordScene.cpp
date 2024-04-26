@@ -30,7 +30,8 @@ void ChordScene::update() {
     if (button->isPressed()) {
       // If the button is pressed, play the chord
       playChord(i, true);
-    } else if (button->isReleased()) {
+    }
+    if (button->isReleased()) {
       // If the button is released, stop playing the chord
       playChord(i, false);
     }

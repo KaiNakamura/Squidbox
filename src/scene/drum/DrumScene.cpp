@@ -23,7 +23,8 @@ void DrumScene::update() {
     if (squidbox->getButton(i)->isPressed()) {
       // If the button is pressed, play the drum
       playDrum(i, true);
-    } else if (squidbox->getButton(i)->isReleased()) {
+    }
+    if (squidbox->getButton(i)->isReleased()) {
       // If the button is released, stop playing the drum
       playDrum(i, false);
     }
