@@ -6,8 +6,8 @@
 #define PIN_KNOB_A 5
 #define PIN_KNOB_B 4
 #define PIN_KNOB_BUTTON -1
-#define PIN_BACK_BUTTON 13
-#define PIN_OK_BUTTON 26
+#define PIN_BACK_BUTTON 26
+#define PIN_OK_BUTTON 13
 #define PIN_BUTTON_0 12
 #define PIN_BUTTON_1 27
 #define PIN_BUTTON_2 33
