@@ -58,6 +58,8 @@ void Squidbox::sleep() {
   // Clear the screen and update it before going to deep sleep
   screen->clear();
   screen->update();
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
   esp_deep_sleep_start();
 }
 
