@@ -72,39 +72,40 @@ void Keyboard::draw(Note root) {
   int whiteKeyPosition = 2; // Initial position of the first white key
   int blackKeyPosition = 8; // Initial position of the first black key
 
-  Note note = root;
-
-  // If first key is black, move white note up one
-  if (!keys[note]->isWhite()) {
-    note = getNextNote(note);
+  // Get the starting note
+  Note startingNote = root;
+  while (!keys[startingNote]->isWhite()) {
+    startingNote = getPreviousNote(startingNote);
   }
 
   // Draw white keys
-  for (int i = 0; i < NUM_KEYS_TO_DRAW; i++) {
+  for (Note note = startingNote; note < startingNote + NUM_KEYS_TO_DRAW;
+       note = getNextNote(note)) {
+    // If key is white, draw it
     if (keys[note]->isWhite()) {
       drawWhiteKey(note, whiteKeyPosition);
 
       // Increment pixel location for white keys
       whiteKeyPosition += WHITE_KEY_WIDTH + 1;
     }
-    note = getNextNote(note);
   }
 
   // Draw black keys
-  note = root;
-  for (int i = 0; i < NUM_KEYS_TO_DRAW; i++) {
+  for (Note note = startingNote; note < startingNote + NUM_KEYS_TO_DRAW;
+       note = getNextNote(note)) {
+    // If key is black, draw it
     if (!keys[note]->isWhite()) {
       drawBlackKey(note, blackKeyPosition);
 
-      // Increment pixel location for black keys, extra if black key is E or B
-      int rootIndex = note % 12;
-      if (rootIndex == 1 || rootIndex == 6 || rootIndex == 8) {
-        blackKeyPosition += WHITE_KEY_WIDTH + 1;
-      } else if (rootIndex == 3 || rootIndex == 10) {
-        blackKeyPosition += 2 * WHITE_KEY_WIDTH + 2;
-      }
+      // Increment pixel location for black keys
+      blackKeyPosition += WHITE_KEY_WIDTH + 1;
     }
-    note = getNextNote(note);
+
+    // Also increment pixel location if key is E or B
+    int rootIndex = note % 12;
+    if (rootIndex == 4 || rootIndex == 11) {
+      blackKeyPosition += WHITE_KEY_WIDTH + 1;
+    }
   }
 
   // Update screen
