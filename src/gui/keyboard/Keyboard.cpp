@@ -72,8 +72,14 @@ void Keyboard::draw(Note root) {
   int whiteKeyPosition = 2; // Initial position of the first white key
   int blackKeyPosition = 8; // Initial position of the first black key
 
-  // Draw white keys
   Note note = root;
+
+  // If first key is black, move white note up one
+  if (!keys[note]->isWhite()) {
+    note = getNextNote(note);
+  }
+
+  // Draw white keys
   for (int i = 0; i < NUM_KEYS_TO_DRAW; i++) {
     if (keys[note]->isWhite()) {
       drawWhiteKey(note, whiteKeyPosition);

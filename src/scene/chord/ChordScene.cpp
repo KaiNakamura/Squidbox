@@ -30,7 +30,8 @@ void ChordScene::update() {
     if (button->isPressed()) {
       // If the button is pressed, play the chord
       playChord(i, true);
-    } else if (button->isReleased()) {
+    }
+    if (button->isReleased()) {
       // If the button is released, stop playing the chord
       playChord(i, false);
     }
@@ -40,7 +41,6 @@ void ChordScene::update() {
   keyboard->update(rootMenuItem->getRootNote());
 }
 
-// TODO: Fix bug where switching root while playing chord causes notes to hang
 void ChordScene::playChord(int index, bool on) {
   // Get the current scale, root note, and chord type from the menu items
   Scale *scale = scaleMenuItem->getScale();

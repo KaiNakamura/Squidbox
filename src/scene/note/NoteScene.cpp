@@ -28,7 +28,8 @@ void NoteScene::update() {
     if (squidbox->getButton(i)->isPressed()) {
       // If the button is pressed, play the note
       playNote(i, true);
-    } else if (squidbox->getButton(i)->isReleased()) {
+    }
+    if (squidbox->getButton(i)->isReleased()) {
       // If the button is released, stop playing the note
       playNote(i, false);
     }
@@ -38,7 +39,6 @@ void NoteScene::update() {
   keyboard->update(rootMenuItem->getRootNote());
 }
 
-// TODO: Fix bug where switching root while playing note causes it to hang
 void NoteScene::playNote(int index, bool on) {
   // Get scale, root note, and chord type from menu items
   Scale *scale = scaleMenuItem->getScale();

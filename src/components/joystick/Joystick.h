@@ -27,9 +27,9 @@ const char *directionToString(Direction direction);
  */
 class Joystick {
 private:
-  const float JOYSTICK_DEADZONE = 0.5;    ///< Deadzone for the joystick.
-  const int X_CENTER = 1848;              ///< Center X value for the joystick.
-  const int Y_CENTER = 1868;              ///< Center Y value for the joystick.
+  const float JOYSTICK_DEADZONE = 0.6;    ///< Deadzone for the joystick.
+  const int X_CENTER = 1911;              ///< Center X value for the joystick.
+  const int Y_CENTER = 1860;              ///< Center Y value for the joystick.
   const int X_MIN = 0;                    ///< Minimum X value for the joystick.
   const int Y_MIN = 0;                    ///< Minimum Y value for the joystick.
   const int X_MAX = 4095;                 ///< Maximum X value for the joystick.
