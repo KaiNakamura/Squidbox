@@ -120,12 +120,12 @@ public:
   const char *getName();
 
 private:
-  Scene *scenes[NUM_SCENES]; ///< An array of pointers to the scenes in the
-                             ///< Squidbox
-  int currentScene = BUTTON_SCENE; ///< The index of the current scene
-  Screen *screen;                  ///< A pointer to the screen of the Squidbox
-  Joystick *joystick; ///< A pointer to the joystick of the Squidbox
-  Knob *knob;         ///< A pointer to the knob of the Squidbox
+  Scene *scenes[NUM_SCENES];     ///< An array of pointers to the scenes in the
+                                 ///< Squidbox
+  int currentScene = MAIN_SCENE; ///< The index of the current scene
+  Screen *screen;                ///< A pointer to the screen of the Squidbox
+  Joystick *joystick;            ///< A pointer to the joystick of the Squidbox
+  Knob *knob;                    ///< A pointer to the knob of the Squidbox
   Button *backButton; ///< A pointer to the back button of the Squidbox
   Button *okButton;   ///< A pointer to the OK button of the Squidbox
   Button *buttons[NUM_BUTTONS]; ///< An array of pointers to the buttons of the
