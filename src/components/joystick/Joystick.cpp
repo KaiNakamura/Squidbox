@@ -32,39 +32,31 @@ float Joystick::map(float x, float inMin, float inMax, float outMin,
 }
 
 float Joystick::convertRawValue(int raw, int center, int min, int max) {
+  // Note that the raw value is inverted because the joystick is rotated 90
+  // degrees to the left.
   if (raw > center) {
     // If the raw value is greater than the center value, map it from the range
     // [center, max] to [0, 1].
-    return map(raw, center, max, 0, 1);
+    return map(raw, center, max, 0, -1);
   } else {
     // If the raw value is less than or equal to the center value, map it from
     // the range [min, center] to [-1, 0].
-    return map(raw, min, center, -1, 0);
+    return map(raw, min, center, 1, 0);
   }
 }
 
-int Joystick::getRawX() {
-  // Read from the y pin because the joystick is rotated right 90 degrees.
-  return analogRead(yPin);
-}
+int Joystick::getRawX() { return analogRead(xPin); }
 
-int Joystick::getRawY() {
-  // Read from the x pin because the joystick is rotated right 90 degrees.
-  return analogRead(xPin);
-}
+int Joystick::getRawY() { return analogRead(yPin); }
 
 float Joystick::getX() {
   // Convert the raw X value to a value in the range -1 to 1 and return it.
-  // X_MAX and X_MIN are swapped because the joystick is rotated right 90
-  // degrees.
-  return convertRawValue(getRawX(), X_CENTER, X_MAX, X_MIN);
+  return convertRawValue(getRawX(), X_CENTER, X_MIN, X_MAX);
 }
 
 float Joystick::getY() {
   // Convert the raw Y value to a value in the range -1 to 1 and return it.
-  // Y_MAX and Y_MIN are swapped because the joystick is rotated right 90
-  // degrees.
-  return convertRawValue(getRawY(), Y_CENTER, Y_MAX, Y_MIN);
+  return convertRawValue(getRawY(), Y_CENTER, Y_MIN, Y_MAX);
 }
 
 bool Joystick::isPressed() {
