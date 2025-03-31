@@ -56,10 +56,10 @@ void CustomScene::playChord(int index, bool on) {
     keyboard->setKeyDown(notes[i], on);
     if (on) {
       // If the chord should be played, send a note on message
-      BLEMidiServer.noteOn(0, notes[i], 127);
+      squidbox->getMidiController()->sendNoteOn(notes[i], 127, 0);
     } else {
       // If the chord should be stopped, send a note off message
-      BLEMidiServer.noteOff(0, notes[i], 127);
+      squidbox->getMidiController()->sendNoteOff(notes[i], 127, 0);
     }
   }
 }

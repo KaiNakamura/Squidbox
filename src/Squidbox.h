@@ -3,6 +3,7 @@
 #include "components/button/Button.h"
 #include "components/joystick/Joystick.h"
 #include "components/knob/Knob.h"
+#include "components/midi-controller/MidiController.h"
 #include "components/screen/Screen.h"
 #include "config/pins.h"
 #include "scene/Scene.h"
@@ -16,11 +17,16 @@
 #include "scene/note/NoteScene.h"
 #include "upload/Upload.h"
 #include <Arduino.h>
-#include <BLEMidi.h>
 #include <esp_efuse.h>
 
 #define MIN_VOLTAGE 3.2 // Considered 0% (deep discharge)
 #define MAX_VOLTAGE 4.2 // Fully charged (100%)
+
+#ifdef SIMULATION
+#include "components/midi-controller/simulated-midi-controller/SimulatedMidiController.h"
+#else
+#include "components/midi-controller/ble-midi-controller/BLEMidiController.h"
+#endif
 
 /**
  * @class Squidbox
@@ -113,6 +119,12 @@ public:
   Button *getButton(int index);
 
   /**
+   * @brief Get a pointer to the MIDI controller
+   * @return A pointer to the MIDI controller
+   */
+  MidiController *getMidiController();
+
+  /**
    * @brief Get the device ID
    * @return The device ID
    */
@@ -141,6 +153,8 @@ private:
   Button *okButton;   ///< A pointer to the OK button of the Squidbox
   Button *buttons[NUM_BUTTONS]; ///< An array of pointers to the buttons of the
                                 ///< Squidbox
+  MidiController
+      *midiController; ///< A pointer to the MIDI controller of the Squidbox
   bool currentSceneInitialized = false; ///< A flag indicating whether the
                                         ///< current scene has been initialized
 };

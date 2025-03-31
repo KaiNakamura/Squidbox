@@ -56,14 +56,17 @@ void Menu::drawMenu(Squidbox *squidbox) {
   screen->getDisplay()->setCursor(0, 0);
 
   // Print header bar
-  screen->getDisplay()->printf(squidbox->getDeviceId());;
-  screen->getDisplay()->setCursor(Screen::WIDTH - 24, 0);
-  screen->getDisplay()->printf("BT");
-  const unsigned char* connectedIcon = BLEMidiServer.isConnected() ? CHECKMARK_BITMAP : X_BITMAP;
-  screen->getDisplay()->drawBitmap(Screen::WIDTH - 8, 0, connectedIcon, 8, 8, WHITE);
+  screen->getDisplay()->printf(squidbox->getDeviceId());
+  screen->getDisplay()->setCursor(Screen::WIDTH - 28, 0);
+  screen->getDisplay()->printf("%s", squidbox->getMidiController()->getName());
+  const unsigned char *connectedIcon =
+      squidbox->getMidiController()->isConnected() ? CHECKMARK_BITMAP
+                                                   : X_BITMAP;
+  screen->getDisplay()->drawBitmap(Screen::WIDTH - 8, 0, connectedIcon, 8, 8,
+                                   WHITE);
 
   screen->getDisplay()->setCursor(0, 8);
-  
+
   // Print menu name
   if (hasParentScene()) {
     screen->getDisplay()->write(ASCII_LEFT_ARROW);
