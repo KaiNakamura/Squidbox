@@ -56,16 +56,14 @@ void Menu::drawMenu(Squidbox *squidbox) {
   screen->getDisplay()->setCursor(0, 0);
 
   // Print header bar
-  screen->getDisplay()->printf(squidbox->getDeviceId());
-  screen->getDisplay()->printf("  BLE:");
-  int connected =
-      BLEMidiServer.isConnected() ? ASCII_UPPERCASE_Y : ASCII_UPPERCASE_N;
-  screen->getDisplay()->write(connected);
-  // TODO: Get actual battery level
-  screen->getDisplay()->printf("  100");
-  screen->getDisplay()->write(ASCII_PERCENT);
-  screen->getDisplay()->printf("\n");
+  screen->getDisplay()->printf(squidbox->getDeviceId());;
+  screen->getDisplay()->setCursor(Screen::WIDTH - 24, 0);
+  screen->getDisplay()->printf("BT");
+  const unsigned char* connectedIcon = BLEMidiServer.isConnected() ? CHECKMARK_BITMAP : X_BITMAP;
+  screen->getDisplay()->drawBitmap(Screen::WIDTH - 8, 0, connectedIcon, 8, 8, WHITE);
 
+  screen->getDisplay()->setCursor(0, 8);
+  
   // Print menu name
   if (hasParentScene()) {
     screen->getDisplay()->write(ASCII_LEFT_ARROW);
