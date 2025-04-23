@@ -1,6 +1,8 @@
 #pragma once
 
 #include "components/button/Button.h"
+#include "components/commander/Commander.h"
+#include "components/config/Config.h"
 #include "components/joystick/Joystick.h"
 #include "components/knob/Knob.h"
 #include "components/midi-controller/MidiController.h"
@@ -9,18 +11,18 @@
 #include "scene/Scene.h"
 #include "scene/button/ButtonScene.h"
 #include "scene/chord/ChordScene.h"
-#include "scene/drum/DrumScene.h"
 #include "scene/custom/CustomScene.h"
+#include "scene/drum/DrumScene.h"
 #include "scene/joystick-calibrator/JoystickCalibratorScene.h"
 #include "scene/knob/KnobScene.h"
 #include "scene/main/MainScene.h"
 #include "scene/note/NoteScene.h"
-#include "upload/Upload.h"
 #include <Arduino.h>
 #include <esp_efuse.h>
 
 #define MIN_VOLTAGE 3.2 // Considered 0% (deep discharge)
 #define MAX_VOLTAGE 4.2 // Fully charged (100%)
+#define CONFIG_FILE "/config.json"
 
 #ifdef SIMULATION
 #include "components/midi-controller/simulated-midi-controller/SimulatedMidiController.h"
@@ -143,8 +145,9 @@ public:
   const int getBatteryPercent();
 
 private:
-  Scene *scenes[NUM_SCENES];     ///< An array of pointers to the scenes in the
-                                 ///< Squidbox
+  Config *config;            ///< A pointer to the configuration of the Squidbox
+  Scene *scenes[NUM_SCENES]; ///< An array of pointers to the scenes in the
+                             ///< Squidbox
   int currentScene = MAIN_SCENE; ///< The index of the current scene
   Screen *screen;                ///< A pointer to the screen of the Squidbox
   Joystick *joystick;            ///< A pointer to the joystick of the Squidbox
@@ -157,4 +160,5 @@ private:
       *midiController; ///< A pointer to the MIDI controller of the Squidbox
   bool currentSceneInitialized = false; ///< A flag indicating whether the
                                         ///< current scene has been initialized
+  Commander *commander; ///< A pointer to the commander of the Squidbox
 };

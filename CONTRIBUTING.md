@@ -25,3 +25,5 @@ Once you Wokwi installed, you need to request a new Wokwi license as detailed in
 [diagram.json](./diagram.json) contains the Wokwi diagram file while [wokwi.toml](./wokwi.toml) tells Wokwi where to look for the firmware, which has been set to be the ESP32 DevKit v1 build target.
 
 To enable IDE integrations for the simulation target, you can uncomment the `default_envs` line under the `[platformio]` common target in [platformio.ini](./platformio.ini).
+
+You can follow the instructions in the [Wokwi documentation](https://docs.wokwi.com/vscode/project-config#serial-port-forwarding) to interact with the simulation via a serial monitor.
