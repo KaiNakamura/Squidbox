@@ -17,10 +17,9 @@ void setup() {
 }
 
 void loop() {
-#ifdef SIMULATION
-  delay(10);
-#endif
-
+  #ifdef SIMULATION
+    delay(10);
+  #endif
   // Continuously update the Squidbox instance
   // This function is called repeatedly by the Arduino framework and drives the
   // application

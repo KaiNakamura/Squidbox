@@ -5,7 +5,7 @@
 Config *Commander::configRef = nullptr;
 
 void cmd_unrecognized(SerialCommands *sender, const char *cmd) {
-  sender->GetSerial()->print("ERR Unrecognized command [");
+  sender->GetSerial()->print("\nERR Unrecognized command [");
   sender->GetSerial()->print(cmd);
   sender->GetSerial()->println("]");
 }

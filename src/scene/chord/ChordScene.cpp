@@ -1,4 +1,3 @@
-#include "ChordScene.h"
 #include "Squidbox.h"
 
 ChordScene::ChordScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {

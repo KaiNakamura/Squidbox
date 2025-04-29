@@ -1,4 +1,3 @@
-#include "CustomScene.h"
 #include "Squidbox.h"
 
 CustomScene::CustomScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
