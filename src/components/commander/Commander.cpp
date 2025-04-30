@@ -9,7 +9,7 @@ void cmd_unrecognized(SerialCommands *sender, const char *cmd) {
 }
 
 // GETCONF
-// Respond with OK <json string> or ERR <error string>
+// Respond with OK|<json string> or ERR|<error string>
 void Commander::cmd_getconf(SerialCommands *sender) {
 
   const std::vector<Preset> &presets = Config::getPresets();
@@ -32,17 +32,17 @@ void Commander::cmd_getconf(SerialCommands *sender) {
 
   String jsonString;
   serializeJson(doc, jsonString);
-  sender->GetSerial()->print("OK ");
+  sender->GetSerial()->print("OK|");
   sender->GetSerial()->println(jsonString);
 }
 
-// SETCONF <json string>
-// Respond with OK or ERR <error string>
+// SETCONF|<json string>
+// Respond with OK or ERR|<error string>
 void Commander::cmd_setconf(SerialCommands *sender) {
   char *jsonString = sender->Next();
-  
+
   if (!jsonString) {
-    sender->GetSerial()->println("ERR Missing JSON string");
+    sender->GetSerial()->println("ERR|Missing JSON string");
     return;
   }
 
@@ -50,7 +50,7 @@ void Commander::cmd_setconf(SerialCommands *sender) {
   DeserializationError error = deserializeJson(doc, jsonString);
 
   if (error) {
-    sender->GetSerial()->print("ERR Failed to parse JSON: ");
+    sender->GetSerial()->print("ERR|Failed to parse JSON: ");
     sender->GetSerial()->println(error.c_str());
     return;
   }
@@ -79,13 +79,13 @@ void Commander::cmd_setconf(SerialCommands *sender) {
       sender->GetSerial()->println("OK");
       return;
     case CONFIG_FILE_NOT_FOUND:
-      sender->GetSerial()->println("ERR Config file not found");
+      sender->GetSerial()->println("ERR|Config file not found");
       return;
     case CONFIG_WRITE_ERROR:
-      sender->GetSerial()->println("ERR Failed to write config file");
+      sender->GetSerial()->println("ERR|Failed to write config file");
       return;
     default:
-      sender->GetSerial()->println("ERR Unknown error");
+      sender->GetSerial()->println("ERR|Unknown error");
       return;
   }
 }

@@ -24,7 +24,8 @@ Squidbox::Squidbox() {
   buttons[6] = new Button(PIN_BUTTON_6);
   buttons[7] = new Button(PIN_BUTTON_7);
 
-  commander = new Commander(&Serial, "\n", " ");
+  // Has to use a pipe delimiter to allow for spaces in the config JSON string
+  commander = new Commander(&Serial, "\n", "|");
 
   // Enable wakeup from deep sleep when button 0 is pressed
   esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(PIN_BACK_BUTTON), 0);
