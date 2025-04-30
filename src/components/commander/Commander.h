@@ -9,11 +9,9 @@ class Commander {
 private:
   char buf[BUFFER_SIZE];
   SerialCommands commander;
-  // static reference to allow access to config from handlers
-  static Config *configRef;
 
 public:
-  Commander(Stream *serial, const char *term, const char *delim, Config &config);
+  Commander(Stream *serial, const char *term, const char *delim);
   void begin();
   void process();
 

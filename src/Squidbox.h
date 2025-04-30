@@ -17,13 +17,11 @@
 #include "scene/knob/KnobScene.h"
 #include "scene/main/MainScene.h"
 #include "scene/note/NoteScene.h"
-#include "upload-manager/UploadManager.h"
 #include <Arduino.h>
 #include <esp_efuse.h>
 
 #define MIN_VOLTAGE 3.2 // Considered 0% (deep discharge)
 #define MAX_VOLTAGE 4.2 // Fully charged (100%)
-#define CONFIG_FILE "/config.json"
 
 #ifdef SIMULATION
 #include "components/midi-controller/simulated-midi-controller/SimulatedMidiController.h"

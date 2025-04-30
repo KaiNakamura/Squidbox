@@ -1,8 +1,6 @@
 #include "Commander.h"
 #include <ArduinoJson.h>
 
-// Static reference to Config
-Config *Commander::configRef = nullptr;
 
 void cmd_unrecognized(SerialCommands *sender, const char *cmd) {
   sender->GetSerial()->print("\nERR Unrecognized command [");
@@ -13,12 +11,8 @@ void cmd_unrecognized(SerialCommands *sender, const char *cmd) {
 // GETCONF
 // Respond with OK <json string> or ERR <error string>
 void Commander::cmd_getconf(SerialCommands *sender) {
-  if (!configRef) {
-    sender->GetSerial()->println("ERR Config not initialized");
-    return;
-  }
 
-  const std::vector<Preset> &presets = configRef->getPresets();
+  const std::vector<Preset> &presets = Config::getPresets();
   JsonDocument doc;
 
   JsonArray presetsArray = doc["presets"].to<JsonArray>();
@@ -45,12 +39,8 @@ void Commander::cmd_getconf(SerialCommands *sender) {
 // SETCONF <json string>
 // Respond with OK or ERR <error string>
 void Commander::cmd_setconf(SerialCommands *sender) {
-  if (!configRef) {
-    sender->GetSerial()->println("ERR Config not initialized");
-    return;
-  }
-
   char *jsonString = sender->Next();
+  
   if (!jsonString) {
     sender->GetSerial()->println("ERR Missing JSON string");
     return;
@@ -84,7 +74,7 @@ void Commander::cmd_setconf(SerialCommands *sender) {
     newPresets.push_back(preset);
   }
 
-  switch (configRef->setPresets(newPresets)) {
+  switch (Config::writePresets(newPresets)) {
     case CONFIG_NOERROR:
       sender->GetSerial()->println("OK");
       return;
@@ -103,10 +93,8 @@ void Commander::cmd_setconf(SerialCommands *sender) {
 SerialCommand cmd_getconf_("GETCONF", Commander::cmd_getconf);
 SerialCommand cmd_setconf_("SETCONF", Commander::cmd_setconf);
 
-Commander::Commander(Stream *serial, const char *term, const char *delim, Config &config)
+Commander::Commander(Stream *serial, const char *term, const char *delim)
     : commander(serial, buf, sizeof(buf), term, delim) {
-  // Set the static reference to Config
-  configRef = &config;
 }
 
 void Commander::begin() {

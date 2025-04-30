@@ -1,20 +1,14 @@
 #include "Squidbox.h"
 
 CustomScene::CustomScene(Squidbox *squidbox) : Scene(squidbox, nullptr) {
-  // Create menu items for root note, scale, and chord type
-  rootMenuItem = new RootNoteMenuItem();
-  // TODO: Custom versions of these
-  scaleMenuItem = new ScaleMenuItem();
-  chordTypeMenuItem = new ChordTypeMenuItem();
+  presetMenuItem = new PresetMenuItem();
 
   // Create an array of menu items
-  MenuItem **menuItems = new MenuItem *[3];
-  menuItems[0] = rootMenuItem;
-  menuItems[1] = scaleMenuItem;
-  menuItems[2] = chordTypeMenuItem;
+  MenuItem **menuItems = new MenuItem *[1];
+  menuItems[0] = presetMenuItem;
 
   // Create a new menu with the menu items
-  menu = new Menu("Custom", 3, menuItems, MAIN_SCENE);
+  menu = new Menu("Custom", 1, menuItems, MAIN_SCENE);
 
   // Create a new keyboard
   keyboard = new Keyboard(squidbox);
@@ -37,21 +31,15 @@ void CustomScene::update() {
     }
   }
 
-  // Update the keyboard with the current root note
-  keyboard->update(rootMenuItem->getRootNote());
+  // Draw keyboard with root note as last root note played
+  keyboard->update(lastRootNote);
 }
 
 void CustomScene::playChord(int index, bool on) {
-  // Get the current scale, root note, and chord type from the menu items
-  Scale *scale = scaleMenuItem->getScale();
-  Note root = rootMenuItem->getRootNote();
-  ChordType *chordType = chordTypeMenuItem->getChordType();
-
-  // Get the notes in the chord
-  int *notes = scale->getNotesFromChord(root, index, chordType);
+  const std::vector<int> notes = presetMenuItem->getPreset()->notes[index];
 
   // Play or stop playing the notes
-  for (int i = 0; i < chordType->numNotes; i++) {
+  for (int i = 0; i < notes.size(); i++) {
     keyboard->setKeyDown(notes[i], on);
     if (on) {
       // If the chord should be played, send a note on message
@@ -61,4 +49,7 @@ void CustomScene::playChord(int index, bool on) {
       squidbox->getMidiController()->sendNoteOff(notes[i], 127, 0);
     }
   }
+
+  // Update the keyboard with the root note of the chord
+  lastRootNote = Note(notes[0]);
 }

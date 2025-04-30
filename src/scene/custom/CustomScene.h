@@ -1,13 +1,11 @@
 #pragma once
 
 #include "gui/keyboard/Keyboard.h"
-#include "gui/menu-item/chord-type/ChordTypeMenuItem.h"
-#include "gui/menu-item/root-note/RootNoteMenuItem.h"
-#include "gui/menu-item/scale/ScaleMenuItem.h"
 #include "scene/Scene.h"
 #include "util/ChordType.h"
 #include "util/note/Note.h"
 #include "util/scale/Scale.h"
+#include <gui/menu-item/preset/PresetMenuItem.h>
 
 /**
  * @class CustomScene
@@ -18,16 +16,14 @@
  */
 class CustomScene : public Scene {
 private:
-  RootNoteMenuItem
-      *rootMenuItem;            ///< The menu item for selecting the root note.
-  ScaleMenuItem *scaleMenuItem; ///< The menu item for selecting the scale.
-  ChordTypeMenuItem
-      *chordTypeMenuItem; ///< The menu item for selecting the chord type.
+  PresetMenuItem
+      *presetMenuItem;    ///< The menu item for selecting the preset.
   Keyboard *keyboard;     ///< The keyboard for playing chords.
   static const Note MIN_NOTE =
       NOTE_C1; ///< The minimum note that can be played.
   static const Note MAX_NOTE =
       NOTE_C7; ///< The maximum note that can be played.
+  Note lastRootNote = NOTE_C4; ///< The last root note played.
 
 public:
   /**

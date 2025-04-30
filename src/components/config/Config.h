@@ -2,14 +2,9 @@
 
 #include <Arduino.h>
 #include <vector>
+#include <util/preset/Preset.h>
 
-#define MAX_BUTTONS 8
-
-struct Preset {
-  String name;
-  String description;
-  std::array<std::vector<int>, MAX_BUTTONS> notes;
-};
+#define CONFIG_FILE "/config.json"
 
 enum ConfigError {
   CONFIG_NOERROR,
@@ -20,18 +15,22 @@ enum ConfigError {
 
 class Config {
 private:
-  std::vector<Preset> presets;
-  const char *configFile;
+  static std::vector<Preset> presets;
+  static const char *configFile;
 
 public:
-  Config(const char *configFile);
+  // Initializes the static configFile path
+  static void init(const char *filePath);
 
   // Called on startup to load presets from the current config file
-  void begin();
+  static void begin();
 
-  const std::vector<Preset> &getPresets() const;
+  // Get current presets
+  static const std::vector<Preset>& getPresets();
+
   // Reads the presets from the config file and updates the in-memory config
-  ConfigError loadPresets();
+  static ConfigError loadPresets();
+
   // Persists the current presets to the in-memory config and the config file
-  ConfigError setPresets(const std::vector<Preset> &presets);
+  static ConfigError writePresets(const std::vector<Preset> &newPresets);
 };

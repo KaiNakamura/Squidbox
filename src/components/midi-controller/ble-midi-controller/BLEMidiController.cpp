@@ -3,7 +3,7 @@
 BLEMidiController::BLEMidiController(const char *deviceName)
     : deviceName(deviceName) {}
 
-const char *BLEMidiController::getName() { return "BLE"; }
+const char *BLEMidiController::getName() { return "BT"; }
 
 bool BLEMidiController::isConnected() { return BLEMidiServer.isConnected(); }
 

@@ -1,7 +1,6 @@
 #include "Squidbox.h"
 
 Squidbox::Squidbox() {
-  config = new Config(CONFIG_FILE);
 #ifdef SIMULATION
   midiController = new SimulatedMidiController();
 #else
@@ -25,13 +24,17 @@ Squidbox::Squidbox() {
   buttons[6] = new Button(PIN_BUTTON_6);
   buttons[7] = new Button(PIN_BUTTON_7);
 
-  commander = new Commander(&Serial, "\n", " ", *config);
+  commander = new Commander(&Serial, "\n", " ");
 
   // Enable wakeup from deep sleep when button 0 is pressed
   esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(PIN_BACK_BUTTON), 0);
 }
 
 void Squidbox::init() {
+  midiController->begin();
+  commander->begin();
+  Config::begin();
+
   // Initialize the scenes with this Squidbox instance
   scenes[MAIN_SCENE] = new MainScene(this);
   scenes[CHORD_SCENE] = new ChordScene(this);
@@ -41,10 +44,6 @@ void Squidbox::init() {
   scenes[JOYSTICK_CALIBRATOR_SCENE] = new JoystickCalibratorScene(this);
   scenes[KNOB_SCENE] = new KnobScene(this);
   scenes[BUTTON_SCENE] = new ButtonScene(this);
-
-  midiController->begin();
-  commander->begin();
-  config->begin();
 }
 
 void Squidbox::update() {

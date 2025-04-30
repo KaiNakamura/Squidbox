@@ -1,25 +1,33 @@
 #include "Config.h"
 #include "LittleFS.h"
-#include <Arduino.h>
 #include <ArduinoJson.h>
 
 #define FORMAT_FS_IF_FAILED true
 
-Config::Config(const char *configFile) : configFile(configFile) {}
+std::vector<Preset> Config::presets;
 
 void Config::begin() {
-  // NOTE: ignore errors for now
   if (!LittleFS.begin(FORMAT_FS_IF_FAILED)) {
+    Serial.println("Failed to mount LittleFS");
     return;
   }
+
   loadPresets();
 }
 
-const std::vector<Preset> &Config::getPresets() const { return presets; }
+const std::vector<Preset>& Config::getPresets() {
+  return presets;
+}
 
 ConfigError Config::loadPresets() {
-  File file = LittleFS.open(configFile, FILE_READ);
+  if (!CONFIG_FILE) {
+    Serial.println("Config file path not set");
+    return CONFIG_FILE_NOT_FOUND;
+  }
+
+  File file = LittleFS.open(CONFIG_FILE, FILE_READ);
   if (!file) {
+    Serial.println("Failed to open config file");
     return CONFIG_FILE_NOT_FOUND;
   }
 
@@ -28,10 +36,12 @@ ConfigError Config::loadPresets() {
   file.close();
 
   if (error) {
+    Serial.println("Failed to parse config file");
     return CONFIG_READ_ERROR;
   }
 
   presets.clear();
+
   for (JsonObject presetObj : doc["presets"].as<JsonArray>()) {
     Preset preset;
     preset.name = presetObj["name"].as<String>();
@@ -50,14 +60,28 @@ ConfigError Config::loadPresets() {
     presets.push_back(preset);
   }
 
+  Serial.println("Loaded presets:");
+  for (const Preset &preset : presets) {
+    Serial.print("  ");
+    Serial.print(preset.name);
+    Serial.print(": ");
+    Serial.println(preset.description);
+  }
+
   return CONFIG_NOERROR;
 }
 
-ConfigError Config::setPresets(const std::vector<Preset> &newPresets) {
+ConfigError Config::writePresets(const std::vector<Preset> &newPresets) {
+  if (!CONFIG_FILE) {
+    Serial.println("Config file path not set");
+    return CONFIG_FILE_NOT_FOUND;
+  }
+
   presets = newPresets;
 
-  File file = LittleFS.open(configFile, FILE_WRITE);
+  File file = LittleFS.open(CONFIG_FILE, FILE_WRITE);
   if (!file) {
+    Serial.println("Failed to open config file");
     return CONFIG_FILE_NOT_FOUND;
   }
 
@@ -80,8 +104,10 @@ ConfigError Config::setPresets(const std::vector<Preset> &newPresets) {
 
   ConfigError ret;
   if (serializeJson(doc, file) == 0) {
+    Serial.println("Failed to write config file");
     ret = CONFIG_WRITE_ERROR;
   } else {
+    Serial.println("Config file written successfully");
     ret = CONFIG_NOERROR;
   }
 

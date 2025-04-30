@@ -57,7 +57,7 @@ void Menu::drawMenu(Squidbox *squidbox) {
 
   // Print header bar
   screen->getDisplay()->printf(squidbox->getDeviceId());
-  screen->getDisplay()->setCursor(Screen::WIDTH - 28, 0);
+  screen->getDisplay()->setCursor(Screen::WIDTH - 24, 0);
   screen->getDisplay()->printf("%s", squidbox->getMidiController()->getName());
   const unsigned char *connectedIcon =
       squidbox->getMidiController()->isConnected() ? CHECKMARK_BITMAP
