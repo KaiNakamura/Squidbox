@@ -17,7 +17,6 @@
 #include "scene/knob/KnobScene.h"
 #include "scene/main/MainScene.h"
 #include "scene/note/NoteScene.h"
-#include "upload-manager/UploadManager.h"
 #include <Arduino.h>
 #include <esp_efuse.h>
 
