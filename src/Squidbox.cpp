@@ -1,8 +1,12 @@
 #include "Squidbox.h"
 
 Squidbox::Squidbox() {
+#ifdef SIMULATION
+  midiController = new SimulatedMidiController();
+#else
   // Start the BLE MIDI server with the name of the device
-  BLEMidiServer.begin(getName());
+  midiController = new BLEMidiController(getName());
+#endif
 
   // Initialize the screen, joystick, knob, and buttons with their respective
   // pins
@@ -20,22 +24,33 @@ Squidbox::Squidbox() {
   buttons[6] = new Button(PIN_BUTTON_6);
   buttons[7] = new Button(PIN_BUTTON_7);
 
+  // Has to use a pipe delimiter to allow for spaces in the config JSON string
+  commander = new Commander(&Serial, "\n", "|");
+
   // Enable wakeup from deep sleep when button 0 is pressed
   esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(PIN_BACK_BUTTON), 0);
 }
 
 void Squidbox::init() {
+  midiController->begin();
+  commander->begin();
+  Config::begin();
+
   // Initialize the scenes with this Squidbox instance
   scenes[MAIN_SCENE] = new MainScene(this);
   scenes[CHORD_SCENE] = new ChordScene(this);
   scenes[NOTE_SCENE] = new NoteScene(this);
   scenes[DRUM_SCENE] = new DrumScene(this);
+  scenes[CUSTOM_SCENE] = new CustomScene(this);
   scenes[JOYSTICK_CALIBRATOR_SCENE] = new JoystickCalibratorScene(this);
   scenes[KNOB_SCENE] = new KnobScene(this);
   scenes[BUTTON_SCENE] = new ButtonScene(this);
 }
 
 void Squidbox::update() {
+  // Process serial commands
+  commander->process();
+
   // If the current scene has not been initialized, initialize it
   if (!currentSceneInitialized) {
     scenes[currentScene]->init();
@@ -83,6 +98,8 @@ Button *Squidbox::getButton(int index) {
   // Return the button at the given index
   return buttons[index];
 }
+
+MidiController *Squidbox::getMidiController() { return midiController; }
 
 const char *Squidbox::getDeviceId() {
   // Get the default MAC address and format it as a string
